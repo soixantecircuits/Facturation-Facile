@@ -36,3 +36,7 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Specific project file#
+######################
+ct-config.php

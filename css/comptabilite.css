@@ -1,0 +1,52 @@
+body {
+	position : absolute;
+	font-family: "Andale Mono";
+	font-size: 8pt;
+	/*width: 19cm;
+	left: 50%;
+	margin-left: -9.5cm;*/
+}
+
+a {
+  color: gray;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+}
+
+.btn
+{
+	font-family: "Andale Mono";
+	font-size: 8pt;
+	background:white;
+	border:solid 1px gray
+}
+
+#menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#menu li { 
+  display: inline;
+}
+
+#menu li a {
+  padding: .2em 1em;
+  color: #fff;
+  background-color: #036;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+#menu li a:hover {
+  color: red;
+}
+
+#resume {
+  margin: 10px 0px;
+}

@@ -1,0 +1,172 @@
+body
+{
+	position : absolute;
+	font-family: "Andale Mono";
+	font-size: 8pt;
+	width: 19cm;
+	left: 50%;
+	margin-left: -9.5cm;
+}
+
+a
+{
+	text-decoration: none;
+	color: black;
+}
+
+a:hover
+{
+	color: red;
+}
+
+td
+{
+	font-size: 8pt;
+}
+
+ul
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+li
+{ 
+	display: inline;
+}
+
+ul li a
+{
+	text-decoration: none;
+	padding: .2em 1em;
+	color: #fff;
+	background-color: #036;
+	font-size: 12px;
+}
+
+tr.designation{
+	font-weight: bold;
+	}
+
+#entete
+{
+	width: 19cm;
+	height: 4.5cm;
+	background:url("images/logo_noir_bande.png") left bottom no-repeat;
+}
+
+#resume
+{
+	padding-top: 2cm;
+}
+
+.title
+{
+	font-size: 12pt;
+	font-weight:bold;
+}
+
+.section
+{
+	margin-top: 0.5cm;
+}
+
+.section_table
+{
+	font-size: 12pt;
+	margin-top: 0.5cm;
+}
+
+.section table
+{
+	border-collapse: collapse;
+	padding-top: 1mm
+}
+
+#addSection
+{
+	margin-left:-30px;
+	font-size: 12pt;
+}
+
+.removeSection
+{
+	margin-left:-30px;
+	font-size: 12pt;
+}
+
+.removeLine
+{
+	margin-left:-22px;
+}
+
+div#remise
+{
+	padding-top: 7mm;
+}
+
+div#remise table
+{
+	border-collapse: collapse;
+}
+
+#totaux
+{
+	padding-top: 7mm;
+}
+
+#totaux table
+{
+	border-collapse: collapse;
+}
+
+#conditions
+{
+	margin-top: 1cm;
+	margin-right: 70mm;
+}
+
+#signature
+{
+	margin-top: 1cm;
+	width: 100%;
+	text-align: right;
+}
+
+.linefirst
+{
+	padding-top: 2pt;
+	padding-bottom: 1pt;
+	border-bottom: 0.7pt solid black;
+	border-top: 0.7pt solid black
+}
+
+.line
+{
+	padding-top: 2pt;
+	padding-bottom: 1pt;
+	border-bottom:0.7pt solid black
+}
+
+input, textarea
+{
+	font-family: "Andale Mono";
+	font-size: 8pt;
+	border: 0px;
+	background-color: #F5F5F5;
+}
+
+.modifiy
+{
+	background-color: #F5F5F5;
+}
+
+
+select
+{
+	font-family: "Andale Mono";
+	font-size: 12pt;
+	background:white;
+	border:solid 1px gray
+}

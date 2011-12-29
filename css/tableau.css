@@ -1,0 +1,96 @@
+table
+{
+	border-spacing:0px;
+}
+
+th
+{
+	font:inherit;
+	padding:10px;
+}
+
+td
+{
+	padding:2px 5px;
+	/*white-space: nowrap;*/
+}
+
+#tab_operations tr:nth-child(2n+1)
+{
+	background-color: #98AFC7;
+}
+
+#tab_operations tr:nth-child(2n+1) td:hover
+{
+	background-color: #ACBED4;
+}
+
+#tab_operations tr:nth-child(2n) td:hover
+{
+	background-color: #E7EDF3;
+}
+
+#edited
+{
+	border:none;
+}
+
+.new_operation
+{
+	width:100%;
+}
+
+.date_operation
+{
+	width:50px;
+}
+
+.date_facture
+{
+	width:50px;
+}
+
+.categorie
+{
+	width:150px;
+}
+
+.provenance
+{
+	width:100px;
+}
+
+.objet
+{
+	width:100px;
+}
+
+.compte
+{
+	width:50px;
+}
+
+.debit
+{
+	width:50px;
+}
+
+.credit
+{
+	width:50px;
+}
+
+.credit_tva
+{
+	width:50px;
+}
+
+.debit_tva
+{
+	width:50px;
+}
+
+.remarques
+{
+	width:100px;
+}
