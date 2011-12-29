@@ -61,6 +61,10 @@ tr.designation{
 	padding-top: 2cm;
 }
 
+#resume textarea{
+	width:100%;
+}
+
 .title
 {
 	font-size: 12pt;
