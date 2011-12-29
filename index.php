@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>Comptabilité - Soixante circuits</title>  
 <link rel="stylesheet" type="text/css" href="css/comptabilite.css"/>
-<link rel="stylesheet" type="text/css" href="css/datePicker.css"/>
+<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.16.custom.css"/>
 <link rel="stylesheet" type="text/css" href="css/tableau.css"/>
 </head>
 <body>
@@ -37,10 +37,10 @@ echo '
 
 echo '</div>'; ?>
 
-<script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="/js/comptabilite.js"></script>
 <script type="text/javascript" src="/js/date.js"></script>
-<script type="text/javascript" src="/js/jquery.datePicker.min-2.1.2.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="/js/tableau.js"></script>
 
 <?php

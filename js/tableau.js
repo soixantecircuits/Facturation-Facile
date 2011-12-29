@@ -183,10 +183,10 @@ function refresh_tab()
         focus_element($(this));		
 	});
 	
-	$(".editable_date").datePicker({
-		startDate:'2008-04-01',
-		createButton:false})
-	.bind(
+	$(".editable_date").datepicker({
+    minDate: new Date(2008, 4 - 1, 1),
+    dateFormat: 'yy-mm-dd'
+  }).bind(
 		'dblclick',
 		function()
 		{
@@ -255,16 +255,16 @@ $(document).ready(function(){
 	
 	Date.format = 'yyyy-mm-dd';
 	
-	$('#date_operation_new').datePicker({
-		startDate:'2008-04-01',
-		createButton:false,
-		clickInput:true});
+	$('#date_operation_new').datepicker({
+		minDate: new Date(2008, 4 - 1, 1),
+    dateFormat: 'yy-mm-dd'
+  });
 
     
-    $('#date_facture_new').datePicker({
-		startDate:'2008-04-01',
-		createButton:false,
-		clickInput:true});
+  $('#date_facture_new').datepicker({
+		minDate: new Date(2008, 4 - 1, 1),
+    dateFormat: 'yy-mm-dd'
+  });
 		
 	$('#ajouter_operation').click(function () { 
 		

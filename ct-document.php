@@ -92,7 +92,7 @@ date et signature du client <br />(précédé de la mention «bon pour accord»)
 	//var xmlstring = "'.str_replace('<br/>',' ',$row[1]).'";
 	var xmlstring = "'.addslashes($row[1]).'"; // osx version
 	</script>
-	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>	
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>	
 	<script type="text/javascript" src="js/document.js"></script>';
 	
 	?>
