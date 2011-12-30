@@ -63,7 +63,7 @@ the location of this file.
       <fonts>
 		<!--<directory recursive="true">/System/Library/Fonts</directory>-->
         <directory recursive="false">/usr/share/fonts/truetype</directory>
-	<!--<auto-detect/>-->
+	      <auto-detect/>
         <!-- embedded fonts -->
         <!--
         This information must exactly match the font specified
@@ -73,6 +73,17 @@ the location of this file.
         <fo:inline font-family="Arial" font-weight="bold" font-style="normal">
             Arial-normal-normal font
         </fo:inline>
+    -->
+        <font metrics-url="/usr/share/fonts/truetype/AndaleMono.xml" kerning="yes">
+          <font-triplet name="AndaleMono" style="normal" weight="normal"/>
+        </font>
+        <font metrics-url="/usr/share/fonts/truetype/AndalMoBI.xml" kerning="yes">
+          <font-triplet name="AndaleMono" style="italic" weight="bold"/>
+        </font>
+        <font metrics-url="/usr/share/fonts/truetype/AndaMoB.xml" kerning="yes">
+          <font-triplet name="AndaleMono" style="normal" weight="bold"/>
+        </font>
+    <!--
         for the font triplet specified by:
         <font-triplet name="Arial" style="normal" weight="bold"/>
 
