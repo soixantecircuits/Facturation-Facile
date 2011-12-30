@@ -3,7 +3,8 @@ $(document).ready(function(){
     jour = today.getDay();
     numero = today.getDate();
     if (numero<10)
-    numero = "0"+numero;
+        numero = "0"+numero;
+        
     mois = today.getMonth();
     annee = today.getFullYear();
 

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>Comptabilité - Soixante circuits</title>  
+<title>Facturation Facile v0.1 - Soixante circuits</title>
 <link rel="stylesheet" type="text/css" href="css/comptabilite.css"/>
 <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.16.custom.css"/>
 <link rel="stylesheet" type="text/css" href="css/tableau.css"/>

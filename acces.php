@@ -99,7 +99,7 @@ if (isset($_POST['log'])) {
 
 <head>
 
-<title>accès à l'administration</title>
+<title>Facturation Facile v0.1 - Soixante circuits - Accès à l'administration</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
