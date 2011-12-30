@@ -52,7 +52,7 @@ N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 
 <div id="remise">
 <table width="100%">
-<tr><td width="57.4%" align=left class="linefirst">REMISE</td> <td width="8.9%" align=right class="linefirst"> </td> <td width="16.8%" align=right class="linefirst"><input id="remise" type="text" name="remise" value="" style="width:89%; text-align:right"/> </td> <td width="16.8%" align=right class="linefirst"> <text id="remise">0</text> &euro;</td></tr>
+<tr><td width="57.4%" align=left class="linefirst">REMISE</td> <td width="8.9%" align=right class="linefirst"> </td> <td width="16.8%" align=right class="linefirst"><input id="remise" type="text" name="remise" value="" style="width:85%; text-align:right"/> </td> <td width="16.8%" align=right class="linefirst"> <text id="remise">0</text> &euro;</td></tr>
 </table>
 </div>
 

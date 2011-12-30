@@ -4,7 +4,7 @@ $(document).ready(function(){
     numero = today.getDate();
     if (numero<10)
         numero = "0"+numero;
-        
+
     mois = today.getMonth();
     annee = today.getFullYear();
 
@@ -301,7 +301,7 @@ function remove(id) {
 function addLine(id, description, quantity, unit_price) {
 	var lineid = document.getElementById('lineid').value;
 	
-	var new_line = '<tr class="line" id="line'+(document.getElementById('id').value - 1) + lineid +'"><td align=right><a class="removeLine" href="#" onClick="remove(\'#line'+(document.getElementById('id').value - 1) + lineid + '\',\'\',0,0); return false;">[-]</a><input class="description" type="text" name="description_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + description + '" style="width:95.8%" /></td><td align=right><input class="quantity" type="text" name="quantity_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + quantity + '" style="width:90%; text-align:right" /></td><td align=lef ><input class="unit_price" type="text" name="unitprice_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + unit_price + '" style="width:89%; text-align:right"/> &euro;</td><td align=right><text class="montant" >0</text> &euro;</td></tr>';
+	var new_line = '<tr class="line" id="line'+(document.getElementById('id').value - 1) + lineid +'"><td align=right><a class="removeLine" href="#" onClick="remove(\'#line'+(document.getElementById('id').value - 1) + lineid + '\',\'\',0,0); return false;">[-]</a><input class="description" type="text" name="description_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + description + '" style="width:95.8%" /></td><td align=right><input class="quantity" type="text" name="quantity_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + quantity + '" style="width:90%; text-align:right" /></td><td align=left ><input class="unit_price" type="text" name="unitprice_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + unit_price + '" style="width:85%; text-align:right"/> &euro;</td><td align=right><text class="montant" >0</text> &euro;</td></tr>';
 	
 	$(id).find(".lastline").before(new_line);
 	
