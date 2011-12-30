@@ -56,6 +56,10 @@ tr.designation{
 	background:url("images/logo_noir_bande.png") left bottom no-repeat;
 }
 
+#entete input, #entete textarea{
+	font-size:9.4px;
+}
+
 #resume
 {
 	padding-top: 2cm;
