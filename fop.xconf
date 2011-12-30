@@ -74,14 +74,15 @@ the location of this file.
             Arial-normal-normal font
         </fo:inline>
     -->
-        <font metrics-url="/usr/share/fonts/truetype/AndaleMono.xml" kerning="yes">
-          <font-triplet name="AndaleMono" style="normal" weight="normal"/>
+        <!-- The fonts need to be in /usr/share/fonts/truetype/ with the respective AndaleMono metrics xml files-->
+        <font metrics-url="/usr/share/fonts/truetype/AndaleMono.xml" kerning="yes" embed-url="/usr/share/fonts/truetype/AndaleMono.ttf">
+          <font-triplet name="AndaleMono" style="normal" weight="normal"/>          
         </font>
-        <font metrics-url="/usr/share/fonts/truetype/AndalMoBI.xml" kerning="yes">
-          <font-triplet name="AndaleMono" style="italic" weight="bold"/>
+        <font metrics-url="/usr/share/fonts/truetype/AndalMoBI.xml" kerning="yes" embed-url="/usr/share/fonts/truetype/AndalMoBI.ttf">
+          <font-triplet name="AndaleMono-BoldItalic" style="italic" weight="bold"/>
         </font>
-        <font metrics-url="/usr/share/fonts/truetype/AndaMoB.xml" kerning="yes">
-          <font-triplet name="AndaleMono" style="normal" weight="bold"/>
+        <font metrics-url="/usr/share/fonts/truetype/AndaMoB.xml" kerning="yes" embed-url="/usr/share/fonts/truetype/AndaMoB.ttf">
+          <font-triplet name="AndaleMono-Bold" style="italic" weight="bold"/>
         </font>
     <!--
         for the font triplet specified by:

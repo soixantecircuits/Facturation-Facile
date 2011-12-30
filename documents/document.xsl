@@ -36,7 +36,7 @@
 	      
 	    </fo:layout-master-set>
       
-      <fo:page-sequence master-reference="mod" font-family="Andale Mono" font-style="normal" font-size="8pt">
+      <fo:page-sequence master-reference="mod" font-family="AndaleMono" font-style="normal" font-size="8pt">
       
         <fo:static-content flow-name="xsl-region-after">
           <fo:block font-size="6pt" text-align="center">
