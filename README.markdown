@@ -29,3 +29,5 @@ Elle permet de les exporter en pdf.
 * Mailer pour indiquer la création d'une facture, d'un devis, ou d'une estimation
 
 * Indication du créateur de la facture
+
+* Amélioration des feuilles de style
