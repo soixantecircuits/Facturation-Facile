@@ -1,4 +1,8 @@
 <?php
+	header('Cache-Control: no-cache, must-revalidate');
+	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+	header('Content-type: application/json');
+
 	$operation = $_GET['operation'];
 
 	switch ($operation) {
@@ -74,11 +78,11 @@
 				//$output = shell_exec('java -Djava.awt.headless=true org.apache.fop.cli.Main -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
 				//$output = shell_exec('fop -c /var/www/factures/fop.xconf -xml /var/www/factures/facture.xml -xsl /var/www/factures/facture.xsl -pdf /var/www/factures/'.$type.'/'.$type.$number.'.pdf');
 				fclose($xmlFile);
+				echo '{"success": true, "msg": "pdf generated"}';
 			}
-			
-			
-			
-		break;	
+
+			break;	
+
 		case "save_document": // OK
 		
 			$xmlstr = <<<XML
@@ -160,7 +164,13 @@ XML;
 			//$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'") ON DUPLICATE KEY UPDATE  xml="'.$xml.'" ';
 			$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name, resume) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'", "'.$_GET['resume'].'") ON DUPLICATE KEY UPDATE xml="'.$xml.'", name="'.$_GET['name'].'", resume="'.$_GET['resume'].'" ';
 
-			$result = mysql_query($query);			
+			try{
+				$result = mysql_query($query);			
+				echo '{"success": true, "msg": '.json_encode($result).'}';
+			}catch(Exception $e){
+				echo '{"success": false, "msg": '.json_encode("10").'}';
+				exit;
+			}
 		break;
 
 		case "display_operations":

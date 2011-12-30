@@ -163,7 +163,7 @@ $(document).ready(function(){
             type: "GET",
             url: "ct-operations.php",
             data: "operation=getpdf&type=" + type + "&number=" + number,
-            dataType: "php",
+            dataType: "json",
             success: function(msg) {
             if (msg)
                 $('#status').text(msg);
@@ -176,6 +176,7 @@ $(document).ready(function(){
 
     // Save document in XML in database
     $('#save').click(function () {
+        $('#status').text('Saving...');
         var datas = "operation=save_document";
         datas += "&type=" + $('#type').text();
         datas += "&acompte=" + $('input[name*="acompte"]').attr('checked');
@@ -259,7 +260,7 @@ $(document).ready(function(){
               type: "GET",
               url: "ct-operations.php",
               data: datas, 
-              dataType: "php",
+              dataType: "json",
               success: function(msg) {
                 $('#status').text('SAVED');
               }
