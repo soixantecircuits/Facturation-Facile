@@ -7,6 +7,7 @@
 
 	switch ($operation) {
 		case "new_document": // OK
+			header('Content-type: text/html');
 			include 'ct-document.php';
 			break;
 		case "delete_document": // OK
@@ -199,7 +200,7 @@ XML;
     		$result = mysql_query($query) or die('Erreur sur la requète : '.$query.'<br/>'.mysql_error());
 
     		$xmlstr = <<<XML
-<?xml version="1.0" encoding="UTF-8"?><tableau_operations></tableau_operations>
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl"?><tableau_operations></tableau_operations>
 XML;
 			
 			$xml_tab = new SimpleXMLElement($xmlstr);

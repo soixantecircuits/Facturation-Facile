@@ -9,9 +9,7 @@ function operations_selection() {
     url: "ct-operations.php",
     data: "operation=display_operations&compte=" + compte + "&month=" + mois + "&year=" + annee + "&a_venir=" + a_venir,
     success: function(msg) {
-      //console.log(msg);
       display_operations(msg);
-      console.log("aaa");
       refresh_tab();
     },
     error: function(jqXHR, textStatus, errorThrown){
