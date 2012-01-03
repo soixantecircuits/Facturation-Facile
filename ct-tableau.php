@@ -1,9 +1,6 @@
 <?php
-	echo '<script type="text/javascript" src="js/tableau.js"></script>';
-	
 	
 	include 'ct-db_connect.php';
-	
 	$selected_month = $_GET['mois'];
 	if ($selected_month == NULL)
     	$selected_month = CURR_MONTH;
@@ -79,4 +76,5 @@
 	
 	include 'ct-tableau/ct-new-operation.php';
 	include 'ct-tableau/ct-tab-operations.php';
+
 ?>

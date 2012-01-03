@@ -1,10 +1,10 @@
 body {
-	position : absolute;
-	font-family: "Andale Mono";
-	font-size: 8pt;
-	/*width: 19cm;
-	left: 50%;
-	margin-left: -9.5cm;*/
+  position : absolute;
+  font-family: "Andale Mono";
+  font-size: 8pt;
+  /*width: 19cm;
+  left: 50%;
+  margin-left: -9.5cm;*/
 }
 
 a {
@@ -19,10 +19,33 @@ a:hover {
 
 .btn
 {
-	font-family: "Andale Mono";
-	font-size: 8pt;
-	background:white;
-	border:solid 1px gray
+  font-family: "Andale Mono";
+  font-size: 8pt;
+  background:white;
+  border:solid 1px gray
+}
+
+.document-line{
+  padding:0px 0px 25px 0px;
+}
+
+.document-line:nth-child(2n){
+  background:#EEE;
+}
+
+#content text {
+  display: block;
+  float: left;
+  width: 450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+a.open_document{
+  display:block;
+  float:left;
+  margin: 0px 20px 0px 0px;
+  cursor: pointer;
 }
 
 #menu {

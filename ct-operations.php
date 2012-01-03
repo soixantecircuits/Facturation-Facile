@@ -18,7 +18,13 @@
 			$query = 'DELETE FROM '.$type.'s WHERE number='.$number.'';
 			$result = mysql_query($query);
 			
-			echo $type;
+			if($result){
+				echo '{"success": true, "msg": "'.$type.' deleted", "redirect":"'.$type.'"}';	
+			}else{
+				echo '{"success": false, "msg": "'.$type.' not deleted", "redirect":"'.$type.'"}';	
+			}
+
+			
 			break;
 		case "copy_document": // OK
 			require('ct-db_connect.php');
@@ -174,6 +180,9 @@ XML;
 		break;
 
 		case "display_operations":
+
+			header('Content-type: text/xml');
+
 			
 			require('ct-db_connect.php');
 			
@@ -190,7 +199,7 @@ XML;
     		$result = mysql_query($query) or die('Erreur sur la requète : '.$query.'<br/>'.mysql_error());
 
     		$xmlstr = <<<XML
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl"?><tableau_operations></tableau_operations>
+<?xml version="1.0" encoding="UTF-8"?><tableau_operations></tableau_operations>
 XML;
 			
 			$xml_tab = new SimpleXMLElement($xmlstr);
@@ -224,6 +233,12 @@ XML;
 		
 			$query = 'INSERT INTO operations (date_operation, date_facture, categorie, provenance, objet, compte, debit, credit, credit_tva, debit_tva, remarques) VALUES ("'.$_GET['date_operation'].'" , "'.$_GET['date_facture'].'" , "'.$_GET['categorie'].'" , "'.$_GET['provenance'].'" , "'.$_GET['objet'].'" , "'.$_GET['compte'].'" , "'.$_GET['debit'].'" , "'.$_GET['credit'].'" , "'.$_GET['credit_tva'].'" , "'.$_GET['debit_tva'].'" , "'.$_GET['remarques'].'" );';
 			$result = mysql_query($query);
+
+			if($result){
+				echo '{"success": true, "msg": "added"}';	
+			}else{
+				echo '{"success": false, "msg": "not added"}';	
+			}
 		
 		break;
 		
@@ -233,6 +248,12 @@ XML;
 			
 			$query = 'DELETE FROM operations WHERE id='.$_GET['id'].';';
 			$result = mysql_query($query);
+
+			if($result){
+				echo '{"success": true, "msg": "deleted"}';	
+			}else{
+				echo '{"success": false, "msg": "not deleted"}';	
+			}
 			
 		break;
         

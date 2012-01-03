@@ -1,10 +1,6 @@
 
 <?php
 	
-	echo '<script type="text/javascript" src="js/operations.js"></script>';
-	echo '<script type="text/javascript" src="js/comptabilite.js"></script>';
-	
-	
 	include 'ct-db_connect.php';
 	
 	// get the new facture number
@@ -50,15 +46,22 @@
 	
 	if ($section == 'facture' || $section == 'devis' || $section == 'estimation')
 	{
-		$query = "SELECT number,name,resume FROM ".$section."s ORDER BY number DESC";
+		$query = "SELECT number,name,resume, xml FROM ".$section."s ORDER BY number DESC";
 	
 		$result = mysql_query($query);
 		
 		$factures = array();
 		$names = array();
+	
 		$resumes = array();
-		
+	
 		$row = mysql_fetch_row($result);
+
+		$sxe = new SimpleXMLElement($row[3]);
+		$node = $sxe->children();
+		$resume	= $node[6]->resume_line;
+	
+		array_push($resumes, $resume);	
 		array_push($factures, sprintf('%06d',$row[0]));
 		array_push($names, $row[1]);
 		array_push($resumes, $row[2]);
@@ -70,7 +73,13 @@
 		while($row = mysql_fetch_row($result)){
 			array_push($factures, sprintf('%06d',$row[0]));
 			array_push($names, $row[1]);
-			array_push($resumes, $row[2]);
+			
+			$sxe = new SimpleXMLElement($row[3]);
+			$node = $sxe->children();
+			$resume	= $node[6]->resume_line;
+			
+			array_push($resumes, $resume);
+
 			$number = sprintf('%06d', $row[0]);
 		}
 		
@@ -80,14 +89,14 @@
 			$new_number_facture = date('y').date('m').'01';
 		
 		echo '<br/><a href="ct-operations.php?operation=new_document&type='.$section.'&number='.$new_number_facture.'">[+] '.$section.' '.$new_number_facture.'</a><br/>';
-		//echo '<br/> <button class="btn new_document" id="'.$section.$number.'" type="button">New '.$section.'</button> <br/>';
 		
 		$i = 0;
 		
 		foreach ($factures as $number)
 		{
+			echo '<div class="document-line">';
 			echo '<a class="open_document" href="ct-document.php?type='.$section.'&number='.$number.'" title="'.$resumes[$i].'">'.$section.' '.$number.'</a> ';
-			echo '<text>'.$names[$i].'</text> ';
+			echo '<text class="main">'.$names[$i].', <span style="width:100%;white-space: nowrap;overflow: hidden;-o-text-overflow: ellipsis;text-overflow:ellipsis;font-style:italic;">'.$resumes[$i].'</span></text> ';
 
 			echo '<a class="delete_document" id="'.$section.$number.'" onClick="return confirm(\'Supprimer ?\')">[-]</a>';
 			echo '<a class="copy_document" id="'.$section.$number.$new_number_facture.'"  href="ct-operations.php?operation=copy_document&type='.$section.'&old_number='.$number.'&number='.$new_number_facture.'">[+]</a>';
@@ -104,8 +113,9 @@
 
 				
 			echo '<br/>';
-			
+			echo '</div>';
 			$i++;
 		}
 	}
-	?>
+	echo '<script type="text/javascript" src="js/operations.js"></script>';	
+?>
