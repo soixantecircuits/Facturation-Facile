@@ -65,7 +65,9 @@
 	
 	define ('TVA', '0.196');
 	
-	$mois = array('Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre');
+	$mois = array('janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre');
+
+	date_default_timezone_set('Europe/Paris');
 	$today = date("Y-m-d");
 
 	define ('CURR_MONTH', (date("m") - 1));

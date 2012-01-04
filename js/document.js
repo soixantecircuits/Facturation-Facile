@@ -187,6 +187,8 @@ $(document).ready(function() {
             resume_line_num += 1;
         }
 
+        datas += "&resume=" + $('textarea[name*="resume"]').val();
+
         $('#sections').find('.section').each(function() {
             datas += "&" + $(this).find('input').attr("name") + "=" + $(this).find('input').val();
 

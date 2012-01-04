@@ -11,7 +11,7 @@
 			include 'ct-document.php';
 			break;
 		case "delete_document": // OK
-			require('ct-db_connect.php');
+			require_once('ct-db_connect.php');
 			$datas = $_GET['datas'];
 			$type = substr($datas, 0, -6);
 			$number = substr($datas, -6, 6);
@@ -24,11 +24,11 @@
 			}else{
 				echo '{"success": false, "msg": "'.$type.' not deleted", "redirect":"'.$type.'"}';	
 			}
-
-			
 			break;
+
 		case "copy_document": // OK
-			require('ct-db_connect.php');
+			header('Content-type: text/html');
+			require_once('ct-db_connect.php');
 			$type = $_GET['type'];
 			$number = $_GET['number'];
 			$old_number = $_GET['old_number'];
@@ -45,8 +45,10 @@
 			include 'ct-document.php';
 
 			break;
+
 		case "transform_document":
-			require('ct-db_connect.php');
+			header('Content-type: text/html');
+			require_once('ct-db_connect.php');
 			$old_type = $_GET['old_type'];
 			$type = $_GET['type'];
 			$old_number = $_GET['old_number'];
@@ -64,9 +66,9 @@
 			include 'ct-document.php';
 
 			break;
-		case "getpdf":
 
-			require('ct-db_connect.php');
+		case "getpdf":
+			require_once('ct-db_connect.php');
 			$type = $_GET['type'];
 			$number = $_GET['number'];
 		
@@ -151,8 +153,8 @@ XML;
 			
 			$xml_output->addChild('remise', $_GET['remise']);
 			
-			require('ct-config.php');
-			if ($_GET['tva'])
+			require_once('ct-config.php');
+			if (isset($_GET['tva']))
 				$xml_output->addChild('tva', $_GET['tva']);
 			else
 				$xml_output->addChild('tva', TVA);
@@ -167,12 +169,29 @@ XML;
 				//$xml_output->resume->addChild('conditions_line', $_GET['conditions_line'.$i]);
 				$xml_output->conditions->addChild('conditions_line', str_replace(' ', '&#160;', $_GET['conditions_line'.$i]));
 			
-			require('ct-db_connect.php');
+			require_once('ct-db_connect.php');
 			$xml = $mysqli->real_escape_string(str_replace("\n",NULL,$xml_output->asXML()));
-			//$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'") ON DUPLICATE KEY UPDATE  xml="'.$xml.'" ';
-			$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name, resume, total_ht, status) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'", "'.$_GET['resume'].'", "'.$_GET['total_ht'].'", '.$_GET['status'].') ON DUPLICATE KEY UPDATE xml="'.$xml.'", name="'.$_GET['name'].'", resume="'.$_GET['resume'].'", total_ht="'.$_GET['total_ht'].'", status='.$_GET['status'].' ';
+			
+			$query = 'INSERT INTO '.$_GET['type'].'s ('.
+			'number,'.
+			' xml,'.
+			' name,'.
+			' resume,'.
+			' total_ht,'.
+			' status) VALUES '.
+			'('.$_GET['number'].', '.
+			'"'.$xml.'", '.
+			'"'.$_GET['name'].'", '.
+			'"'.$_GET['resume'].'", '.
+			'"'.$_GET['total_ht'].'", '.
+			'"'.$_GET["status"].'") ON DUPLICATE KEY UPDATE '.
+			'xml="'.$xml.'", '.
+			'name="'.$_GET['name'].'", '.
+			'resume="'.$_GET['resume'].'", '.
+			'total_ht="'.$_GET['total_ht'].'", '.
+			'status="'.$_GET['status'].'"';
 
-
+			//$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name, resume, total_ht) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'", "'.$_GET['resume'].'", "'.$_GET['total_ht'].'") ON DUPLICATE KEY UPDATE xml="'.$xml.'", name="'.$_GET['name'].'", resume="'.$_GET['resume'].'", total_ht="'.$_GET['total_ht'].'" ';
 
 			try{
 				$result = mysql_query($query);			
@@ -214,9 +233,8 @@ XML;
 		break;
 
 		case "display_operations":
-
 			header('Content-type: text/xml');
-			require('ct-db_connect.php');
+			require_once('ct-db_connect.php');
 			
 			if ($_GET['a_venir'])
 				$query = 'SELECT * FROM operations WHERE date_operation = 0000-00-00 AND compte = "'. ($_GET['compte']) .'" ORDER BY date_facture DESC, id DESC';
@@ -260,8 +278,7 @@ XML;
 			break;
 			
 		case "add_operation":
-		
-			require('ct-db_connect.php');
+			require_once('ct-db_connect.php');
 		
 			$query = 'INSERT INTO operations (date_operation, date_facture, categorie, provenance, objet, compte, debit, credit, credit_tva, debit_tva, remarques) VALUES ("'.$_GET['date_operation'].'" , "'.$_GET['date_facture'].'" , "'.$_GET['categorie'].'" , "'.$_GET['provenance'].'" , "'.$_GET['objet'].'" , "'.$_GET['compte'].'" , "'.$_GET['debit'].'" , "'.$_GET['credit'].'" , "'.$_GET['credit_tva'].'" , "'.$_GET['debit_tva'].'" , "'.$_GET['remarques'].'" );';
 			$result = mysql_query($query);
@@ -275,8 +292,7 @@ XML;
 		break;
 		
 		case "delete_operation":
-			
-			require('ct-db_connect.php');
+			require_once('ct-db_connect.php');
 			
 			$query = 'DELETE FROM operations WHERE id='.$_GET['id'].';';
 			$result = mysql_query($query);
@@ -289,46 +305,44 @@ XML;
 			
 		break;
         
-        case "save_operation":
-            
-            require('ct-db_connect.php');
-            
-            $query = 'UPDATE operations SET '. $_POST['type'] .' = "'. $_POST['value'] .'" WHERE id = '. $_GET['id'] .'';
-            $result = mysql_query($query);
-			
-            echo $query;
-            
-        break;
-        
-        case "refresh_total":
-            
-            require('ct-db_connect.php');
-            
-            $query = 'SELECT compte, credit, debit FROM operations WHERE date_operation != 0000-00-00';
-            $result = mysql_query($query);
-            
-            $compte = 0;
-            $caisse = 0;
-            
-            while( $row = mysql_fetch_array($result) )
-			{
-                // Calcul du solde dans le compte en banque
-                if (($row['compte'] == 'Compte') || ($row['compte'] == 'CB'))
-                    $compte += $row['credit'] - $row['debit'];
-                // Calcul du solde en caisse
-                if ($row['compte'] == 'Caisse')
-                    $caisse += $row['credit'] - $row['debit'];
-            }
-            
-            $query = 'UPDATE comptes SET montant = '.$compte.' WHERE compte="Compte"';
-            $result = mysql_query($query);
-            
-            $query = 'UPDATE comptes SET montant = '.$caisse.' WHERE compte="Caisse"';
-            $result = mysql_query($query);
-            
-            echo $compte.'|'.$caisse;
+    case "save_operation":      
+	    require_once('ct-db_connect.php');
+    
+		  $query = 'UPDATE operations SET '. $_POST['type'] .' = "'. $_POST['value'] .'" WHERE id = '. $_GET['id'] .'';
+		  $result = mysql_query($query);
 
-        break;
+		  echo $query;
+      
+    break;
+        
+    case "refresh_total":     
+      require_once('ct-db_connect.php');
+      
+      $query = 'SELECT compte, credit, debit FROM operations WHERE date_operation != 0000-00-00';
+      $result = mysql_query($query);
+      
+      $compte = 0;
+      $caisse = 0;
+      
+      while( $row = mysql_fetch_array($result) )
+			{
+          // Calcul du solde dans le compte en banque
+          if (($row['compte'] == 'Compte') || ($row['compte'] == 'CB'))
+              $compte += $row['credit'] - $row['debit'];
+          // Calcul du solde en caisse
+          if ($row['compte'] == 'Caisse')
+              $caisse += $row['credit'] - $row['debit'];
+      }
+      
+      $query = 'UPDATE comptes SET montant = '.$compte.' WHERE compte="Compte"';
+      $result = mysql_query($query);
+      
+      $query = 'UPDATE comptes SET montant = '.$caisse.' WHERE compte="Caisse"';
+      $result = mysql_query($query);
+      
+      echo $compte.'|'.$caisse;
+
+    break;
 	}
 	
 	?>
