@@ -1,3 +1,5 @@
+var clients = {};
+
 $(document).ready(function(){
     var today = new Date();
     jour = today.getDay();
@@ -267,6 +269,50 @@ $(document).ready(function(){
               }
               });
         });
+
+        $("#sections").sortable({
+            update: function(event, ui){
+                $("#sections").children().each(function(ind,el){$(this).attr('id','section'+ind)});
+            }
+        });
+
+        $(".section").mouseenter(function(){
+            $(this).children(".grip").show();
+        }).mouseleave(function(){
+            $(this).children(".grip").hide();
+        });
+
+        if($("#conditions").children('textarea').val() === ""){
+            $("#conditions").children('textarea').val("Conformément à la Loi °921442 du 31/12/1992 : Le règlement de cette facture doit intervenir au comptant à réception, aucun escompte ne sera appliqué en cas de paiement anticipé. Au-delà d'un délai de trente jours, après la date de facture, il sera appliqué un intérêt de retard égal à une fois et demi le taux de l'intérêt légal, TVA en sus.");
+        }
+
+       $("#clients_name").autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url: "ct-operations.php",
+                    dataType: "json",
+                    data: {
+                        operation: "get_clients",
+                        name_contain: request.term
+                    },
+                    success: function( data ) {
+                        response( $.map( data.data, function( item ) {
+                            return {
+                                value: item.name,
+                                id: item.id
+                            }
+                        }));
+                    }
+                });
+            },
+            minLength: 2,
+            select: function( event, ui ) {
+                console.log( ui.item ?
+                    "Selected: " + ui.item.value + " id " + ui.item.id :
+                    "Nothing selected, input was " + this.value );
+            }
+        });
+
     });
 
 function addSection(title) {
@@ -275,11 +321,13 @@ function addSection(title) {
 	
 	var new_section = '<div class="section" id="section' + id + '" > ' + 
 	'<a class="removeSection" href="#" onClick="remove(\'#section' + id + '\'); return false;">[-]</a>' +
-	'<input class="title" type="text" id="section_'+id+'" name="section_'+id+'" value="' + title +'" style="width:100%"/>' +
-	'<table width="100%"> ' +
+	'<input class="title" type="text" id="section_'+id+'" name="section_'+id+'" value="' + title +'" style="width:98%"/>' +
+	'<table width="98%"> ' +
 	'<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' +
 	'<tr class="lastline"><td align=left class="line"><a href="#" onClick="addLine(\'#section' + id + '\',\'\',0,0); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' +
-	'<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table></div>';
+	'<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>'+
+    '<span class="grip"></span>' +
+    '</div>';
 	
 	$("#sections").append(new_section);
 	$("#section" + id ).hide();

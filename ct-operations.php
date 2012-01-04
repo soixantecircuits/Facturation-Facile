@@ -171,9 +171,41 @@ XML;
 			//$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'") ON DUPLICATE KEY UPDATE  xml="'.$xml.'" ';
 			$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name, resume) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'", "'.$_GET['resume'].'") ON DUPLICATE KEY UPDATE xml="'.$xml.'", name="'.$_GET['name'].'", resume="'.$_GET['resume'].'" ';
 
+
+
 			try{
 				$result = mysql_query($query);			
-				echo '{"success": true, "msg": '.json_encode($result).'}';
+				$firstquery = json_encode($result);
+			}catch(Exception $e){
+				echo '{"success": false, "msg": '.json_encode("10").'}';
+				exit;
+			}
+
+			$query = 'INSERT IGNORE INTO clients (name) VALUES ("'.$_GET['name'].'");';
+
+			try{
+				$result = mysql_query($query);			
+				$secondquery = json_encode($result);
+				echo '{"success": true, "msg": '.$secondquery.'}';
+			}catch(Exception $e){
+				echo '{"success": false, "msg": '.json_encode("10").'}';
+				exit;
+			}
+
+		break;
+
+		case "get_clients":
+			require('ct-config.php');
+			require('ct-db_connect.php');
+
+			$query = 'SELECT DISTINCT id, name FROM clients WHERE name LIKE  "%'.$_GET["name_contain"].'%" ORDER BY name;';
+			try{
+				$result = mysql_query($query);		
+				$allres = array();
+    		while ($allres[] = mysql_fetch_object($result)) {}
+    		array_pop($allres);
+
+				echo '{"success": true, "data": '.json_encode($allres).'}';
 			}catch(Exception $e){
 				echo '{"success": false, "msg": '.json_encode("10").'}';
 				exit;

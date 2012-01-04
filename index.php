@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>Facturation Facile v0.1 - Soixante circuits</title>
 <link rel="stylesheet" type="text/css" href="css/comptabilite.css"/>
-<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.16.custom.css"/>
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css"/>
 <link rel="stylesheet" type="text/css" href="css/tableau.css"/>
 </head>
 <body>
