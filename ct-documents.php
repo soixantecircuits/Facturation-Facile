@@ -30,7 +30,7 @@
 		$DEV_new_number_facture = date('y').date('m').'01';
 		
 	// get the new estimation number
-	$query = "SELECT number, name, resume, FROM estimations ORDER BY number DESC";
+	$query = "SELECT number, name, resume FROM estimations ORDER BY number DESC";
 	$result = mysql_query($query);
 	$row = mysql_fetch_row($result);
 	$last_facture_number = sprintf('%06d',$row[0]);
