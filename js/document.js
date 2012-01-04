@@ -1,27 +1,26 @@
 var clients = {};
 
-$(document).ready(function(){
+$(document).ready(function() {
     var today = new Date();
     jour = today.getDay();
     numero = today.getDate();
-    if (numero<10)
-        numero = "0"+numero;
+    if (numero < 10) numero = "0" + numero;
 
     mois = today.getMonth();
     annee = today.getFullYear();
 
-    TabJour = new Array("Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi");
-    TabMois = new Array("Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Décembre");
+    TabJour = new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
+    TabMois = new Array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre");
     messageDate = numero + " " + TabMois[mois] + " " + annee;
 
     $('input[name*="number"]').val($('#number').text());
     $('input[name*="tva"]').val(0.196);
 
-    $('#return').attr("href", "index.php?section="+ $('#type').text());				  
+    $('#return').attr("href", "index.php?section=" + $('#type').text());
 
     // Fill fields with xml datas
-    var xmlobject = (new DOMParser()).parseFromString(xmlstring, "text/xml"); 
-    $(xmlobject).find('facture').each(function(){
+    var xmlobject = (new DOMParser()).parseFromString(xmlstring, "text/xml");
+    $(xmlobject).find('facture').each(function() {
         //var type = $(this).find('type').text();
         var type = $('#type').text();
         var acompte = $(this).find('acompte').text();
@@ -29,21 +28,15 @@ $(document).ready(function(){
         var date = $(this).find('date').text();
         var follower = $(this).find('follower').text();
 
-        if (type == "facture")
-        {
+        if (type == "facture") {
             $('#type').after('(<input type="checkbox" name="acompte">aco.)');
-            if (acompte == "true")
-            {
+            if (acompte == "true") {
                 $('input[name*="acompte"]').attr('checked', "true");
-            }   
-            else
-            {
+            } else {
                 $('#ligne_acompte').hide();
                 $('#ligne_net_a_payer').hide();
             }
-        }
-        else
-        {
+        } else {
             $('#ligne_acompte').hide();
             $('#ligne_net_a_payer').hide();
             $('#ligne_acompte_verse').hide();
@@ -54,19 +47,21 @@ $(document).ready(function(){
         $('input[name*="follower"]').val(follower);
 
         var client_name = $(this).find('client').find('name').text();
+        var client_contact = $(this).find('client').find('contact').text();
         var client_address = $(this).find('client').find('address').text();
         var client_zip = $(this).find('client').find('zip').text();
         var client_city = $(this).find('client').find('city').text();
         var client_country = $(this).find('client').find('country').text();
 
         $('input[name*="name"]').val(client_name.replace(/\\/g, ''));
+        $('input[name*="contact"]').val(client_contact.replace(/\\/g, ''));
         $('input[name*="address"]').val(client_address.replace(/\\/g, ''));
         $('input[name*="zip"]').val(client_zip.replace(/\\/g, ''));
         $('input[name*="city"]').val(client_city.replace(/\\/g, ''));
         $('input[name*="country"]').val(client_country.replace(/\\/g, ''));
 
         var resume = "";
-        $(this).find('resume').find('resume_line').each(function(){
+        $(this).find('resume').find('resume_line').each(function() {
             resume += $(this).text() + "\n";
         });
 
@@ -75,51 +70,42 @@ $(document).ready(function(){
 
         $('textarea[name*="resume"]').val(resume.replace(/\\/g, ''));
 
-        $(this).find('section').each(function(){
+        $(this).find('section').each(function() {
             var id;
             id = addSection($(this).find('title').text());
 
-            $(this).find('item').each(function(){
+            $(this).find('item').each(function() {
                 addLine("#section" + id, $(this).find('description').text().replace(/\\/g, ''), $(this).find('quantity').text(), $(this).find('unit_price').text());
             });
         });
 
         var remise;
 
-        if ($(this).find('remise').text())
-            remise = $(this).find('remise').text();
-        else
-            remise = 0;
+        if ($(this).find('remise').text()) remise = $(this).find('remise').text();
+        else remise = 0;
         $('input[name*="remise"]').val(remise);
 
 
         var tva;
-        if ($(this).find('tva').text())
-            tva = $(this).find('tva').text();
-        else
-            tva = 0.196;
+        if ($(this).find('tva').text()) tva = $(this).find('tva').text();
+        else tva = 0.196;
         $('input[name*="tva"]').val(tva);
 
 
         var pourc_acompte;
-        if ($(this).find('pourc_acompte').text())
-            pourc_acompte = $(this).find('pourc_acompte').text();
-        else
-            pourc_acompte = 0.;
+        if ($(this).find('pourc_acompte').text()) pourc_acompte = $(this).find('pourc_acompte').text();
+        else pourc_acompte = 0.0;
         $('input[name*="pourc_acompte"]').val(pourc_acompte);
 
 
         var acompte_verse;
-        if ($(this).find('acompte_verse').text())
-            acompte_verse = $(this).find('acompte_verse').text();
-        else
-            acompte_verse = 0.;
+        if ($(this).find('acompte_verse').text()) acompte_verse = $(this).find('acompte_verse').text();
+        else acompte_verse = 0.0;
         $('input[name*="acompte_verse"]').val(acompte_verse);
         //if (!acompte_verse)
-        //	$('#ligne_montant_reste').hide();
-
+        //  $('#ligne_montant_reste').hide();
         var conditions = "";
-        $(this).find('conditions').find('conditions_line').each(function(){
+        $(this).find('conditions').find('conditions_line').each(function() {
             conditions += $(this).text() + "\n";
         });
 
@@ -132,33 +118,30 @@ $(document).ready(function(){
         refresh();
         $('#status').text('LOADED');
 
-        $('input').blur(function () {
+        $('input').blur(function() {
             refresh();
         });
 
     });
-				  
+
     // Today button
-    $('#today').click(function () { 
+    $('#today').click(function() {
         $('input[name*="date"]').val(messageDate);
     });
-                    
+
     // Acompte checkbox
-    $('input[name*="acompte"]').click(function () {                    
-        if ($('input[name*="acompte"]').attr("checked"))
-        {
+    $('input[name*="acompte"]').click(function() {
+        if ($('input[name*="acompte"]').attr("checked")) {
             $('#ligne_acompte').show();
             $('#ligne_net_a_payer').show();
-        }
-        else
-        {
+        } else {
             $('#ligne_acompte').hide();
             $('#ligne_net_a_payer').hide();
         }
     });
 
     // Get document in PDF
-    $('#getpdf').click(function () {
+    $('#getpdf').click(function() {
         var type = $('#type').text();
         var number = $('#number').text();
         $('#status').text('GETTING PDF ...');
@@ -168,17 +151,16 @@ $(document).ready(function(){
             data: "operation=getpdf&type=" + type + "&number=" + number,
             dataType: "json",
             success: function(msg) {
-            if (msg)
-                $('#status').text(msg);
+                if (msg) $('#status').text(msg);
 
-            $('#status').text('GET PDF');
-            window.open('documents/'+type+'/'+type+number+'.pdf');
+                $('#status').text('GET PDF');
+                window.open('documents/' + type + '/' + type + number + '.pdf');
             }
         });
-    });				  
+    });
 
     // Save document in XML in database
-    $('#save').click(function () {
+    $('#save').click(function() {
         $('#status').text('Saving...');
         var datas = "operation=save_document";
         datas += "&type=" + $('#type').text();
@@ -187,6 +169,7 @@ $(document).ready(function(){
         datas += "&date=" + $('input[name*="date"]').val();
         datas += "&follower=" + $('input[name*="follower"]').val();
         datas += "&name=" + $('input[name*="name"]').val();
+        datas += "&contact=" + $('input[name*="contact"]').val();
         datas += "&address=" + $('input[name*="address"]').val();
         datas += "&zip=" + $('input[name*="zip"]').val();
         datas += "&city=" + $('input[name*="city"]').val();
@@ -197,19 +180,16 @@ $(document).ready(function(){
         datas += "&resume_lines=" + resume_lines.length;
 
         var resume_line_num = 0;
-        while (resume_line_num < resume_lines.length)
-        {
+        while (resume_line_num < resume_lines.length) {
             datas += "&resume_line" + resume_line_num + "=" + resume_lines[resume_line_num];
             resume_line_num += 1;
         }
 
-        $('#sections').find('.section').each(function(){
+        $('#sections').find('.section').each(function() {
             datas += "&" + $(this).find('input').attr("name") + "=" + $(this).find('input').val();
-                                         
-            $(this).find('.line').each(function()
-            {
-                if ($(this).find('.description').attr("name"))
-                {
+
+            $(this).find('.line').each(function() {
+                if ($(this).find('.description').attr("name")) {
                     datas += "&" + $(this).find('.description').attr("name") + "=" + $(this).find('.description').val();
                     datas += "&" + $(this).find('.quantity').attr("name") + "=" + $(this).find('.quantity').val();
                     datas += "&" + $(this).find('.unit_price').attr("name") + "=" + $(this).find('.unit_price').val();
@@ -218,32 +198,23 @@ $(document).ready(function(){
             });
         });
 
-        if (($('input[name*="remise"]').val() >= 0) && (($('input[name*="remise"]').val() <= 1)))
-            datas += "&remise=" + $('input[name*="remise"]').val();
-        else
-        {
+        if (($('input[name*="remise"]').val() >= 0) && (($('input[name*="remise"]').val() <= 1))) datas += "&remise=" + $('input[name*="remise"]').val();
+        else {
             alert("Le document ne peut etre sauvegarde car la remise doit etre comprise entre 0 et 1");
             return 0;
         }
 
-        if($('input[name*="acompte"]').attr("checked"))
-        {
-            if (($('input[name*="pourc_acompte"]').val() >= 0) && (($('input[name*="pourc_acompte"]').val() <= 1)))
-                datas += "&pourc_acompte=" + $('input[name*="pourc_acompte"]').val();
-            else
-            {
+        if ($('input[name*="acompte"]').attr("checked")) {
+            if (($('input[name*="pourc_acompte"]').val() >= 0) && (($('input[name*="pourc_acompte"]').val() <= 1))) datas += "&pourc_acompte=" + $('input[name*="pourc_acompte"]').val();
+            else {
                 alert("Le document ne peut etre sauvegarde car l'acompte doit etre compris entre 0 et 1");
                 return 0;
             }
-        }
-        else
-            datas += "&pourc_acompte=0";
+        } else datas += "&pourc_acompte=0";
 
 
-        if (($('input[name*="acompte_verse"]').val() < parseFloat($('#total_ttc').text())) && ($('input[name*="acompte_verse"]').val() >= 0))
-            datas += "&acompte_verse=" + $('input[name*="acompte_verse"]').val();
-        else
-        {
+        if (($('input[name*="acompte_verse"]').val() < parseFloat($('#total_ttc').text())) && ($('input[name*="acompte_verse"]').val() >= 0)) datas += "&acompte_verse=" + $('input[name*="acompte_verse"]').val();
+        else {
             alert("Le document ne peut etre sauvegarde car l'acompte verse doit etre inferieur au total ttc");
             return 0;
         }
@@ -253,142 +224,148 @@ $(document).ready(function(){
         datas += "&conditions_lines=" + conditions_lines.length;
 
         var conditions_line_num = 0;
-        while (conditions_line_num < conditions_lines.length)
-        {
+        while (conditions_line_num < conditions_lines.length) {
             datas += "&conditions_line" + conditions_line_num + "=" + conditions_lines[conditions_line_num];
             conditions_line_num += 1;
         }
 
         $.ajax({
-              type: "GET",
-              url: "ct-operations.php",
-              data: datas, 
-              dataType: "json",
-              success: function(msg) {
+            type: "GET",
+            url: "ct-operations.php",
+            data: datas,
+            dataType: "json",
+            success: function(msg) {
                 $('#status').text('SAVED');
-              }
-              });
-        });
-
-        $("#sections").sortable({
-            update: function(event, ui){
-                $("#sections").children().each(function(ind,el){$(this).attr('id','section'+ind)});
             }
         });
-
-        $(".section").mouseenter(function(){
-            $(this).children(".grip").show();
-        }).mouseleave(function(){
-            $(this).children(".grip").hide();
-        });
-
-        if($("#conditions").children('textarea').val() === ""){
-            $("#conditions").children('textarea').val("Conformément à la Loi °921442 du 31/12/1992 : Le règlement de cette facture doit intervenir au comptant à réception, aucun escompte ne sera appliqué en cas de paiement anticipé. Au-delà d'un délai de trente jours, après la date de facture, il sera appliqué un intérêt de retard égal à une fois et demi le taux de l'intérêt légal, TVA en sus.");
-        }
-
-       $("#clients_name").autocomplete({
-            source: function( request, response ) {
-                $.ajax({
-                    url: "ct-operations.php",
-                    dataType: "json",
-                    data: {
-                        operation: "get_clients",
-                        name_contain: request.term
-                    },
-                    success: function( data ) {
-                        response( $.map( data.data, function( item ) {
-                            return {
-                                value: item.name,
-                                id: item.id
-                            }
-                        }));
-                    }
-                });
-            },
-            minLength: 2,
-            select: function( event, ui ) {
-                console.log( ui.item ?
-                    "Selected: " + ui.item.value + " id " + ui.item.id :
-                    "Nothing selected, input was " + this.value );
-            }
-        });
-
     });
 
+    $("#sections").sortable({
+        update: function(event, ui) {
+            $("#sections").children().each(function(ind, el) {
+                $(this).attr('id', 'section' + ind);
+            });
+        }
+    });
+
+    $(".section").mouseenter(function() {
+        $(this).children(".grip").show();
+    }).mouseleave(function() {
+        $(this).children(".grip").hide();
+    });
+
+    if ($("#conditions").children('textarea').val() === "") {
+        $("#conditions").children('textarea').val("Conformément à la Loi °921442 du 31/12/1992 : Le règlement de cette facture doit intervenir au comptant à réception, aucun escompte ne sera appliqué en cas de paiement anticipé. Au-delà d'un délai de trente jours, après la date de facture, il sera appliqué un intérêt de retard égal à une fois et demi le taux de l'intérêt légal, TVA en sus.");
+    }
+
+    $("#clients_name").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "ct-operations.php",
+                dataType: "json",
+                data: {
+                    operation: "get_clients",
+                    name_contain: request.term
+                },
+                success: function(data) {
+                    response($.map(data.data, function(item) {
+                        return {
+                            value: item.name,
+                            id: item.id,
+                            contact: item.contact,
+                            street_number: item.street_number,
+                            street: item.street,
+                            area: item.area
+                        };
+                    }));
+                }
+            });
+        },
+        minLength: 2,
+        select: function(event, ui) {
+            console.log(ui.item ? "Selected: " + ui.item.value + " id " + ui.item.id : "Nothing selected, input was " + this.value);
+            $("#contact").val(ui.item.contact);
+            $("#street_number").val(ui.item.street_number);
+            $("#street").val(ui.item.street);
+            $("#area").val(ui.item.area);
+        }
+    });
+
+});
+
 function addSection(title) {
-	var id = document.getElementById('id').value;
-	document.getElementById('lineid').value = 0;
-	
-	var new_section = '<div class="section" id="section' + id + '" > ' + 
-	'<a class="removeSection" href="#" onClick="remove(\'#section' + id + '\'); return false;">[-]</a>' +
-	'<input class="title" type="text" id="section_'+id+'" name="section_'+id+'" value="' + title +'" style="width:98%"/>' +
-	'<table width="98%"> ' +
-	'<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' +
-	'<tr class="lastline"><td align=left class="line"><a href="#" onClick="addLine(\'#section' + id + '\',\'\',0,0); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' +
-	'<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>'+
-    '<span class="grip"></span>' +
-    '</div>';
-	
-	$("#sections").append(new_section);
-	$("#section" + id ).hide();
-	$("#section" + id ).slideDown("fast");
-	
-	var return_id = id;
-	id = parseInt(id) + 1;
-	document.getElementById('id').value = id;
-	return return_id;
+    var id = document.getElementById('id').value;
+    document.getElementById('lineid').value = 0;
+
+    var new_section = '<div class="section" id="section' + id + '" > ' + '<a class="removeSection" href="#" onClick="remove(\'#section' + id + '\'); return false;">[-]</a>' + '<input class="title" type="text" id="section_' + id + '" name="section_' + id + '" value="' + title + '" style="width:98%"/>' + '<table width="98%"> ' + '<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' + '<tr class="lastline"><td align=left class="line"><a href="#" onClick="addLine(\'#section' + id + '\',\'\',0,0); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' + '<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>' + '<span class="grip"></span>' + '</div>';
+
+    $("#sections").append(new_section);
+    $("#section" + id).hide();
+    $("#section" + id).slideDown("fast");
+
+    var return_id = id;
+    id = parseInt(id,10) + 1;
+    document.getElementById('id').value = id;
+
+    $(".section").mouseenter(function() {
+        $(this).children(".grip").show();
+    }).mouseleave(function() {
+        $(this).children(".grip").hide();
+    });
+
+    return return_id;
 }
 
 function remove(id) {
-	$(id).slideUp("fast", function() {
+    $(id).slideUp("fast", function() {
         $(id).remove();
         refresh();
     });
 }
 
 function addLine(id, description, quantity, unit_price) {
-	var lineid = document.getElementById('lineid').value;
-	
-	var new_line = '<tr class="line" id="line'+(document.getElementById('id').value - 1) + lineid +'"><td align=right><a class="removeLine" href="#" onClick="remove(\'#line'+(document.getElementById('id').value - 1) + lineid + '\',\'\',0,0); return false;">[-]</a><input class="description" type="text" name="description_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + description + '" style="width:95.8%" /></td><td align=right><input class="quantity" type="text" name="quantity_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + quantity + '" style="width:90%; text-align:right" /></td><td align=left ><input class="unit_price" type="text" name="unitprice_'+(document.getElementById('id').value - 1)+'_'+lineid+'" value="' + unit_price + '" style="width:85%; text-align:right"/> &euro;</td><td align=right><text class="montant" >0</text> &euro;</td></tr>';
-	
-	$(id).find(".lastline").before(new_line);
-	
-	lineid = parseInt(lineid) + 1;
-	document.getElementById('lineid').value = lineid;
-	
-	$('input[name*="quantity"]').blur(function () {
+    var lineid = document.getElementById('lineid').value;
+
+    var new_line = '<tr class="line" id="line' + (document.getElementById('id').value - 1) + lineid + '"><td align=right><a class="removeLine" href="#" onClick="remove(\'#line' + (document.getElementById('id').value - 1) + lineid + '\',\'\',0,0); return false;">[-]</a><input class="description" type="text" name="description_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + description + '" style="width:95.8%" /></td><td align=right><input class="quantity" type="text" name="quantity_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + quantity + '" style="width:90%; text-align:right" /></td><td align=left ><input class="unit_price" type="text" name="unitprice_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + unit_price + '" style="width:85%; text-align:right"/> &euro;</td><td align=right><text class="montant" >0</text> &euro;</td></tr>';
+
+    $(id).find(".lastline").before(new_line);
+
+    lineid = parseInt(lineid,10) + 1;
+    document.getElementById('lineid').value = lineid;
+
+    $('input[name*="quantity"]').blur(function() {
         refresh();
-	});
-	
-	$('input[name*="unitprice"]').blur(function () {
-		refresh();
+    });
+
+    $('input[name*="unitprice"]').blur(function() {
+        refresh();
     });
 }
 
 function refresh() {
-	
-	var quantity = 0;
-	var unit_price = 0;
-	var montant = 0;
-	var montant_total = 0;
-	var total = 0;
-	var remise = 0;
-	var total_ht = 0;
-	var total_tva = 0;
-	var total_ttc = 0;
-	var pourc_acompte = 0;
-	var net_a_payer = 0;
-	var acompte_verse = 0;
-	var montant_reste = 0;
-	
-	$('#status').text('MODIFIED');
-	
-	$('.section').each(function(){
-					   
+
+    var quantity = 0;
+    var unit_price = 0;
+    var montant = 0;
+    var montant_total = 0;
+    var total = 0;
+    var remise = 0;
+    var total_ht = 0;
+    var total_tva = 0;
+    var total_ttc = 0;
+    var pourc_acompte = 0;
+    var net_a_payer = 0;
+    var acompte_verse = 0;
+    var montant_reste = 0;
+
+    $('#status').text('MODIFIED');
+
+    $('.section').each(function() {
+
         montant_total = 0;
 
-        $(this).find('table > tbody > .line').each(function(){
-                                                  
+        $(this).find('table > tbody > .line').each(function() {
+
             quantity = $(this).find('td > input[name*="quantity"]').val();
             unit_price = $(this).find('td > input[name*="unitprice"]').val();
 
@@ -404,25 +381,24 @@ function refresh() {
         $(this).find('table > tbody > tr > td > #montant_total').text(montant_total);
 
     });
-	
-	remise = $('#remise > table > tbody > tr').find('td > input[name*="remise"]').val();
-	$('#remise > table > tbody > tr').find('td > #remise').text(Math.round(remise * total * 100) / 100);
-	
-	total_ht = total * (1 - remise);
-	$('#totaux > table > tbody > tr').find('td > #total_ht').text(Math.round(total_ht* 100) / 100);
-	
-	total_tva = total_ht * $('#totaux > table > tbody > tr').find('td > input[name*="tva"]').val();
-	$('#totaux > table > tbody > tr').find('td > #total_tva').text(Math.round(total_tva* 100) / 100);
-	
-	total_ttc = total_ht + total_tva;
-	$('#totaux > table > tbody > tr').find('td > #total_ttc').text(Math.round(total_ttc * 100) / 100);
-	
-	pourc_acompte = $('#totaux > table > tbody > tr').find('td > input[name*="pourc_acompte"]').val();
-	net_a_payer = total_ttc * pourc_acompte;
-	$('#totaux > table > tbody > tr').find('td > #net_a_payer').text(Math.round(net_a_payer * 100) / 100);
-	
-	acompte_verse = $('#totaux > table > tbody > tr').find('td > input[name*="acompte_verse"]').val();
-	montant_reste = total_ttc - acompte_verse;
-	$('#totaux > table > tbody > tr').find('td > #montant_reste').text(Math.round(montant_reste * 100) / 100);	
-}
 
+    remise = $('#remise > table > tbody > tr').find('td > input[name*="remise"]').val();
+    $('#remise > table > tbody > tr').find('td > #remise').text(Math.round(remise * total * 100) / 100);
+
+    total_ht = total * (1 - remise);
+    $('#totaux > table > tbody > tr').find('td > #total_ht').text(Math.round(total_ht * 100) / 100);
+
+    total_tva = total_ht * $('#totaux > table > tbody > tr').find('td > input[name*="tva"]').val();
+    $('#totaux > table > tbody > tr').find('td > #total_tva').text(Math.round(total_tva * 100) / 100);
+
+    total_ttc = total_ht + total_tva;
+    $('#totaux > table > tbody > tr').find('td > #total_ttc').text(Math.round(total_ttc * 100) / 100);
+
+    pourc_acompte = $('#totaux > table > tbody > tr').find('td > input[name*="pourc_acompte"]').val();
+    net_a_payer = total_ttc * pourc_acompte;
+    $('#totaux > table > tbody > tr').find('td > #net_a_payer').text(Math.round(net_a_payer * 100) / 100);
+
+    acompte_verse = $('#totaux > table > tbody > tr').find('td > input[name*="acompte_verse"]').val();
+    montant_reste = total_ttc - acompte_verse;
+    $('#totaux > table > tbody > tr').find('td > #montant_reste').text(Math.round(montant_reste * 100) / 100);
+}

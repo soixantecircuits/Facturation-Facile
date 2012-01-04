@@ -104,6 +104,7 @@ XML;
 			$xml_output->addChild('follower', $_GET['follower']);
 			$xml_output->addChild('client');
 			$xml_output->client->addChild('name', $_GET['name']);
+			$xml_output->client->addChild('contact', $_GET['contact']);
 			$xml_output->client->addChild('address', $_GET['address']);
 			$xml_output->client->addChild('zip', $_GET['zip']);
 			$xml_output->client->addChild('city', $_GET['city']);
@@ -181,7 +182,7 @@ XML;
 				exit;
 			}
 
-			$query = 'INSERT IGNORE INTO clients (name) VALUES ("'.$_GET['name'].'");';
+			$query = 'INSERT IGNORE INTO clients (name, contact, address, zip, city, country) VALUES ("'.$_GET['name'].'","'.$_GET['contact'].'","'.$_GET['address'].'","'.$_GET['zip'].'","'.$_GET['city'].'","'.$_GET['country'].'");';
 
 			try{
 				$result = mysql_query($query);			
@@ -198,7 +199,7 @@ XML;
 			require('ct-config.php');
 			require('ct-db_connect.php');
 
-			$query = 'SELECT DISTINCT id, name FROM clients WHERE name LIKE  "%'.$_GET["name_contain"].'%" ORDER BY name;';
+			$query = 'SELECT DISTINCT id, name, contact, street_number, street, area FROM clients WHERE name LIKE  "%'.$_GET["name_contain"].'%" ORDER BY name;';
 			try{
 				$result = mysql_query($query);		
 				$allres = array();
@@ -215,8 +216,6 @@ XML;
 		case "display_operations":
 
 			header('Content-type: text/xml');
-
-			
 			require('ct-db_connect.php');
 			
 			if ($_GET['a_venir'])

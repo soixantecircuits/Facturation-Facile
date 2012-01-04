@@ -416,7 +416,7 @@
       </fo:table-cell>
       <fo:table-cell>
         <fo:block>
-          <xsl:value-of select="name"/>
+          <xsl:value-of select="name"/> <xsl:value-of select="contact"/>
         </fo:block>
       </fo:table-cell>
     </fo:table-row>
