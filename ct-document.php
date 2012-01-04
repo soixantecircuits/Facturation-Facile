@@ -28,7 +28,7 @@ N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 <tr><td></td><td></td><td><input id="date" type="text" name="date" size="30" maxlength="30"/> <button class="btn" type="button" id="today">Today</button> </td></tr>
 <tr><td></td><td></td><td>Affaire suivie par <input type="text" name="follower" size="20" maxlength="20"/> </td></tr>
 <tr><td></td><td>31, rue Louis Blanc</td><td><input type="text" id="clients_name" name="name" style="width:50%;" maxlength="40"/> <input type="text" id="contact" name="contact" style="width:46%;" maxlength="40"/></td></tr>
-<tr><td></td><td>75010 Paris</td><td><input type="text" id="address" name="address" style="width:100%;" maxlength="40"/></td></tr>
+<tr><td></td><td>75010 Paris</td><td><input type="text" id="address" name="address" style="width:100%;" maxlength="100"/></td></tr>
 <tr><td></td><td>Tel. : 01 80 50 76 14</td><td><input type="text" id="zip" name="zip" style="width:15%;" maxlength="5"/> <input type="text" name="city" style="width:81%;" id="city" maxlength="31"/></td></tr>
 <tr><td></td><td>www.soixantecircuits.fr</td><td><input id="country" type="text" name="country" style="width:100%;" maxlength="40"/></td></tr>
 
@@ -49,7 +49,7 @@ N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 <input type="hidden" id="lineid" value="0" />
 <div id="sections"></div>
 
-<p id="addSection"><a href="#" onClick="addSection('✎ TITRE'); return false;">[+]</a></p>
+<p id="addSection"><a href="#" onClick="addSection('TITRE'); return false;">[+]</a></p>
 
 <div id="remise">
 <table width="100%">
