@@ -186,6 +186,12 @@ div#remise table
 	border-bottom:0.7pt solid black
 }
 
+#current_status {
+	font-size: 10px;
+	width: 95%;
+	text-align: left;
+}
+
 input, textarea
 {
 	font-family: "Andale Mono";

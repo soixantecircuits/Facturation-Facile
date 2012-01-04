@@ -18,11 +18,38 @@
 <a id="return" href="index.php">[RETURN]</a>
 <text>|</text>
 <text id="status"></text>
-
+<form>
 <table width="100%" >
 
 <input type="hidden" name="type" value="'.$_GET['type'].'" />
-<tr><td width="40.7%"></td><td width="23.3%"></td><td width="36%" class="title"><text id="type"><?php echo $_GET['type']?></text>
+<tr><td width="40.7%"></td><td width="23.3%">
+<?php
+
+require_once('ct-db_connect.php');
+
+echo "<select name='current_status' id='current_status'>";
+
+$query = 'SELECT status FROM '.$_GET['type'].'s WHERE number = '.$_GET["number"];
+
+try{
+	$result = mysql_query($query);			
+	$firstquery = json_encode($result);
+}catch(Exception $e){
+	echo '{"success": false, "msg": '.json_encode("10").'}';
+	exit;
+}
+
+$row = mysql_fetch_array($result);
+
+$status_available = array('awaiting','sended','paied','overdue');
+foreach($status_available as $value)
+	if($row[0] == $value)
+    echo "<option selected value=$value>$value</option>";
+  else
+  	echo "<option value=$value>$value</option>";
+echo "</select>";
+?>
+</td><td width="36%" class="title"><text id="type"><?php echo $_GET['type']?></text>
 N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 
 <tr><td></td><td></td><td><input id="date" type="text" name="date" size="30" maxlength="30"/> <button class="btn" type="button" id="today">Today</button> </td></tr>

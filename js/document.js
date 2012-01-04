@@ -10,7 +10,7 @@ $(document).ready(function() {
     annee = today.getFullYear();
 
     TabJour = new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
-    TabMois = new Array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre");
+    TabMois = new Array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "décembre");
     messageDate = numero + " " + TabMois[mois] + " " + annee;
 
     $('input[name*="number"]').val($('#number').text());
@@ -175,6 +175,7 @@ $(document).ready(function() {
         datas += "&city=" + $('input[name*="city"]').val();
         datas += "&country=" + $('input[name*="country"]').val();
         datas += "&total_ht=" + $('input[name*="total_ht"]').val();
+        datas += "&status=" + $('select[name*="current_status"]').val();
 
         resume_lines = $('textarea[name*="resume"]').val().split("\n");
 

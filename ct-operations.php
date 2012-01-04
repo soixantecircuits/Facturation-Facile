@@ -170,7 +170,7 @@ XML;
 			require('ct-db_connect.php');
 			$xml = $mysqli->real_escape_string(str_replace("\n",NULL,$xml_output->asXML()));
 			//$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'") ON DUPLICATE KEY UPDATE  xml="'.$xml.'" ';
-			$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name, resume, total_ht) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'", "'.$_GET['resume'].'", "'.$_GET['total_ht'].'") ON DUPLICATE KEY UPDATE xml="'.$xml.'", name="'.$_GET['name'].'", resume="'.$_GET['resume'].'", total_ht="'.$_GET['total_ht'].'" ';
+			$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name, resume, total_ht, status) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'", "'.$_GET['resume'].'", "'.$_GET['total_ht'].'", '.$_GET['status'].') ON DUPLICATE KEY UPDATE xml="'.$xml.'", name="'.$_GET['name'].'", resume="'.$_GET['resume'].'", total_ht="'.$_GET['total_ht'].'", status='.$_GET['status'].' ';
 
 
 
