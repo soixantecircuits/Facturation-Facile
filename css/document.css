@@ -186,6 +186,10 @@ div#remise table
 	border-bottom:0.7pt solid black
 }
 
+a.delete_document{
+	cursor:pointer;
+}
+
 input, textarea
 {
 	font-family: "Andale Mono";
