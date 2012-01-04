@@ -199,7 +199,7 @@ XML;
 			require('ct-config.php');
 			require('ct-db_connect.php');
 
-			$query = 'SELECT DISTINCT id, name, contact, street_number, street, area FROM clients WHERE name LIKE  "%'.$_GET["name_contain"].'%" ORDER BY name;';
+			$query = 'SELECT DISTINCT id, name, contact, address, zip, city, country FROM clients WHERE name LIKE  "%'.$_GET["name_contain"].'%" ORDER BY name;';
 			try{
 				$result = mysql_query($query);		
 				$allres = array();

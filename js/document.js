@@ -273,9 +273,10 @@ $(document).ready(function() {
                             value: item.name,
                             id: item.id,
                             contact: item.contact,
-                            street_number: item.street_number,
-                            street: item.street,
-                            area: item.area
+                            address: item.address,
+                            zip: item.zip,
+                            city: item.city,
+                            country: item.country
                         };
                     }));
                 }
@@ -285,9 +286,10 @@ $(document).ready(function() {
         select: function(event, ui) {
             console.log(ui.item ? "Selected: " + ui.item.value + " id " + ui.item.id : "Nothing selected, input was " + this.value);
             $("#contact").val(ui.item.contact);
-            $("#street_number").val(ui.item.street_number);
-            $("#street").val(ui.item.street);
-            $("#area").val(ui.item.area);
+            $("#address").val(ui.item.address);
+            $("#zip").val(ui.item.zip);
+            $("#city").val(ui.item.city);
+            $("#country").val(ui.item.country);
         }
     });
 
@@ -297,7 +299,7 @@ function addSection(title) {
     var id = document.getElementById('id').value;
     document.getElementById('lineid').value = 0;
 
-    var new_section = '<div class="section" id="section' + id + '" > ' + '<a class="removeSection" href="#" onClick="remove(\'#section' + id + '\'); return false;">[-]</a>' + '<input class="title" type="text" id="section_' + id + '" name="section_' + id + '" value="' + title + '" style="width:98%"/>' + '<table width="98%"> ' + '<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' + '<tr class="lastline"><td align=left class="line"><a href="#" onClick="addLine(\'#section' + id + '\',\'\',0,0); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' + '<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>' + '<span class="grip"></span>' + '</div>';
+    var new_section = '<div class="section" id="section' + id + '" > ' + '<a class="removeSection" href="#" onClick="remove($(this).parent()); return false;">[-]</a>' + '<input class="title" type="text" id="section_' + id + '" name="section_' + id + '" value="' + title + '" style="width:98%"/>' + '<table width="98%"> ' + '<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' + '<tr class="lastline"><td align=left class="line"><a href="#" onClick="addLine(\'#section' + id + '\',\'\',0,0); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' + '<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>' + '<span class="grip"></span>' + '</div>';
 
     $("#sections").append(new_section);
     $("#section" + id).hide();

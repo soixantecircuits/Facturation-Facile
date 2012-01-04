@@ -52,7 +52,6 @@
 		
 		$factures = array();
 		$names = array();
-	
 		$resumes = array();
 	
 		$row = mysql_fetch_row($result);
@@ -64,7 +63,7 @@
 		array_push($resumes, $resume);	
 		array_push($factures, sprintf('%06d',$row[0]));
 		array_push($names, $row[1]);
-		array_push($resumes, $row[2]);
+
 		$number = sprintf('%06d',$row[0]);
 		$last_year_facture = substr($number, 0, 2);
 		$last_month_facture = substr($number, 2, 2);
