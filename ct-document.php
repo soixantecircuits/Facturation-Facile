@@ -40,6 +40,13 @@ N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 <button class="btn" type="button" id="save">Save</button>
 <input type="hidden" name="number" value="" />
 
+<div id="options">
+	<text class="title">Options</text><br />
+	<div id="options_content">
+		Montant journalier par défaut : <input name="default_val" type="text" id="default_val" value="450" style="width:5%;"/><span id="update_default_val">☑<span>
+	</div>
+</div>
+
 <div id="resume">
 <text class="title">DESCRIPTION</text><br />
 <textarea name="resume" cols="117" rows="4"></textarea>

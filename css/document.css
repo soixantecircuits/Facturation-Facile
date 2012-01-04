@@ -207,3 +207,9 @@ select
 	background:white;
 	border:solid 1px gray
 }
+
+#update_default_val {
+	font-size: 15px;
+	cursor: pointer;
+	margin-left: 10px;
+}
