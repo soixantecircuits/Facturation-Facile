@@ -191,8 +191,6 @@ XML;
 			'total_ht="'.$_GET['total_ht'].'", '.
 			'status="'.$_GET['status'].'"';
 
-			//$query = 'INSERT INTO '.$_GET['type'].'s (number, xml, name, resume, total_ht) VALUES ('.$_GET['number'].', "'.$xml.'", "'.$_GET['name'].'", "'.$_GET['resume'].'", "'.$_GET['total_ht'].'") ON DUPLICATE KEY UPDATE xml="'.$xml.'", name="'.$_GET['name'].'", resume="'.$_GET['resume'].'", total_ht="'.$_GET['total_ht'].'" ';
-
 			try{
 				$result = mysql_query($query);			
 				$firstquery = json_encode($result);
