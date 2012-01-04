@@ -147,7 +147,7 @@
             <fo:table-column column-width="25mm"/>
             
               <fo:table-body>
-                <fo:table-row>
+                <fo:table-row font-weight="bold">
                   <fo:table-cell><fo:block></fo:block></fo:table-cell>
                   <fo:table-cell text-align="right">
                     <fo:block>
@@ -190,7 +190,7 @@
                 </fo:table-row>
 
                 
-                <fo:table-row font-weight="bold" >
+                <fo:table-row font-weight="normal" >
                   <fo:table-cell><fo:block></fo:block></fo:table-cell>
                   <fo:table-cell text-align="right" padding-top="5pt">
                     <fo:block>
@@ -624,7 +624,5 @@
 
     <xsl:value-of select="$sum + $sum-of-rest"/> 
   </xsl:template>
-  
-  
   
 </xsl:stylesheet>
