@@ -4,7 +4,7 @@
 	include 'ct-db_connect.php';
 	
 	// get the new facture number
-	$query = "SELECT number,name,resume FROM factures ORDER BY number DESC";
+	$query = "SELECT number, name, resume FROM factures ORDER BY number DESC";
 	$result = mysql_query($query);
 	$row = mysql_fetch_row($result);
 	$last_facture_number = sprintf('%06d',$row[0]);
@@ -17,7 +17,7 @@
 		$FAC_new_number_facture = date('y').date('m').'01';
 		
 	// get the new devis number
-	$query = "SELECT number,name,resume FROM deviss ORDER BY number DESC";
+	$query = "SELECT number, name, resume FROM deviss ORDER BY number DESC";
 	$result = mysql_query($query);
 	$row = mysql_fetch_row($result);
 	$last_facture_number = sprintf('%06d',$row[0]);
@@ -30,7 +30,7 @@
 		$DEV_new_number_facture = date('y').date('m').'01';
 		
 	// get the new estimation number
-	$query = "SELECT number,name,resume FROM estimations ORDER BY number DESC";
+	$query = "SELECT number, name, resume, FROM estimations ORDER BY number DESC";
 	$result = mysql_query($query);
 	$row = mysql_fetch_row($result);
 	$last_facture_number = sprintf('%06d',$row[0]);
@@ -46,12 +46,13 @@
 	
 	if ($section == 'facture' || $section == 'devis' || $section == 'estimation')
 	{
-		$query = "SELECT number,name,resume, xml FROM ".$section."s ORDER BY number DESC";
+		$query = "SELECT number, name, resume, xml, total_ht FROM ".$section."s ORDER BY number DESC";
 	
 		$result = mysql_query($query);
 		
 		$factures = array();
 		$names = array();
+		$total_ht = array();
 		$resumes = array();
 	
 		$row = mysql_fetch_row($result);
@@ -63,6 +64,7 @@
 		array_push($resumes, $resume);	
 		array_push($factures, sprintf('%06d',$row[0]));
 		array_push($names, $row[1]);
+		array_push($total_ht, $row[4]);
 
 		$number = sprintf('%06d',$row[0]);
 		$last_year_facture = substr($number, 0, 2);
@@ -72,6 +74,7 @@
 		while($row = mysql_fetch_row($result)){
 			array_push($factures, sprintf('%06d',$row[0]));
 			array_push($names, $row[1]);
+			array_push($total_ht, $row[4]);
 			
 			$sxe = new SimpleXMLElement($row[3]);
 			$node = $sxe->children();
@@ -96,6 +99,8 @@
 			echo '<div class="document-line">';
 			echo '<a class="open_document" href="ct-document.php?type='.$section.'&number='.$number.'" title="'.$resumes[$i].'">'.$section.' '.$number.'</a> ';
 			echo '<text class="main">'.$names[$i].', <span style="width:100%;white-space: nowrap;overflow: hidden;-o-text-overflow: ellipsis;text-overflow:ellipsis;font-style:italic;">'.$resumes[$i].'</span></text> ';
+
+			echo '<span class="price">'.$total_ht[$i].' € HT</span> ';
 
 			echo '<a class="delete_document" id="'.$section.$number.'" onClick="return confirm(\'Supprimer ?\')">[-]</a>';
 			echo '<a class="copy_document" id="'.$section.$number.$new_number_facture.'"  href="ct-operations.php?operation=copy_document&type='.$section.'&old_number='.$number.'&number='.$new_number_facture.'">[+]</a>';

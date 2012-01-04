@@ -174,6 +174,7 @@ $(document).ready(function() {
         datas += "&zip=" + $('input[name*="zip"]').val();
         datas += "&city=" + $('input[name*="city"]').val();
         datas += "&country=" + $('input[name*="country"]').val();
+        datas += "&total_ht=" + $('input[name*="total_ht"]').val();
 
         resume_lines = $('textarea[name*="resume"]').val().split("\n");
 
@@ -396,6 +397,7 @@ function refresh() {
 
     total_ht = total * (1 - remise);
     $('#totaux > table > tbody > tr').find('td > #total_ht').text(Math.round(total_ht * 100) / 100);
+    $("#total_ht_auto").val(Math.round(total_ht * 100) / 100);
 
     total_tva = total_ht * $('#totaux > table > tbody > tr').find('td > input[name*="tva"]').val();
     $('#totaux > table > tbody > tr').find('td > #total_tva').text(Math.round(total_tva * 100) / 100);

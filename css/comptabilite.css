@@ -29,6 +29,31 @@ a:hover {
   padding:0px 0px 25px 0px;
 }
 
+a.delete_document{
+  cursor: pointer;
+  display: block;
+  float: left;
+}
+
+a.copy_document{
+  cursor: pointer;
+  display: block;
+  float: left;
+}
+
+a.transform_document{
+  cursor: pointer;
+  display: block;
+  float: left;
+}
+
+span.price {
+  display: block;
+  width: 99px;
+  float: left;
+  text-align: right;
+}
+
 .document-line:nth-child(2n){
   background:#EEE;
 }

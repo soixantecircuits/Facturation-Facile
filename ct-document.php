@@ -66,7 +66,7 @@ N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 
 <div id="totaux">
 <table width="100%">
-<tr><td width="73.8%"></td><td width="13.1%" align=right>TOTAL HT</td> <td width="13.1%" align=right><text id="total_ht">0</text> &euro;</td> </tr>
+<tr><input id="total_ht_auto" name="total_ht" type="text" value="null" style="display:none"/><td width="73.8%"></td><td width="13.1%" align=right>TOTAL HT</td> <td width="13.1%" align=right><text id="total_ht">0</text> &euro;</td> </tr>
 <tr><td width="73.8%"></td><td width="13.1%" align=right>TVA (<input id="tva" type="text" name="tva" value="" style="width:40%; text-align:right"/>)</td> <td width="13.1%" align=right><text id="total_tva">0</text> &euro;</td> </tr>
 <tr><td width="73.8%"></td><td width="13.1%" align=right>TOTAL TTC</td> <td width="13.1%" align=right><text id="total_ttc">0</text> &euro;</td> </tr>
 <tr id="ligne_acompte"><td width="73.8%"></td><td width="13.1%" align=right>Acompte</td> <td width="13.1%" align=right><input id="pourc_acompte" type="text" name="pourc_acompte" value="" style="width:50%; text-align:right"/></td> </tr>
@@ -83,7 +83,6 @@ N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 <div id="signature">
 date et signature du client <br />(précédé de la mention «bon pour accord»)
 </div>
-
 </form>
 </body>
 </html>
