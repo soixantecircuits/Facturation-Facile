@@ -239,6 +239,15 @@ input { margin:0; padding:0}
 
 </div>  
 
+
+<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-color.js"></script>
+<script type="text/javascript" src="/js/comptabilite.js"></script>
+<script type="text/javascript" src="/js/date.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="/js/tableau.js"></script>
+
+
 </body>
 
 </html>

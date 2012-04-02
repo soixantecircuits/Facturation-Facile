@@ -97,7 +97,7 @@ tr.designation{
 
 .grip {
 	cursor: pointer;
-	background: whiteSmoke;
+	background: blueViolet;
 	float: right;
 	display: none;
 	height: 100%;

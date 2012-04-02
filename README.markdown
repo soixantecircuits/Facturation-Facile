@@ -10,6 +10,11 @@ Elle permet de les exporter en pdf.
 * Serveur php5 
 * Serveur >= mysql 4 
 * apache fop
+  You can install it by runngin :
+  brew install fop (OSX)
+  apt-get install fop (Ubuntu/debian)
+  or go here :
+  http://xmlgraphics.apache.org/fop/download.html
 * java JDK
 
 ## Améliorations 

@@ -14,14 +14,13 @@
 
 <?php
 echo '
-
 <p>
 <a href="'.$logoutAction.'">[LOGOUT]</a>
 <text>|</text>
 <text id="status"></text>
 </p>
 
-<text id="s" style="visibility:hidden">'.$_GET['section'].'</text>
+<text id="s" style="visibility:hidden">'.isset($_GET['section']).'</text>
 
 <ul id="menu">
 <li> <a class="menu_link" id="estimations" href="ct-documents.php?section=estimation">ESTIMATIONS</a> </li>
@@ -31,13 +30,14 @@ echo '
 </ul>
 
 <div id="content">';
-	$section = $_GET['section'];
+	$section = isset($_GET['section']);
 	if ($section == 'facture' || $section == 'devis' || $section == 'estimation')
 		include 'ct-documents.php';
 
 echo '</div>'; ?>
 
 <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-color.js"></script>
 <script type="text/javascript" src="/js/comptabilite.js"></script>
 <script type="text/javascript" src="/js/date.js"></script>
 <script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>

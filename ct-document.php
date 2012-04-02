@@ -104,7 +104,7 @@ N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 </div>
 
 <div id="conditions">
-<textarea name="conditions" cols="80" rows="6"></textarea>
+	<textarea name="conditions" cols="80" rows="6"></textarea>
 </div>
 
 <div id="signature">

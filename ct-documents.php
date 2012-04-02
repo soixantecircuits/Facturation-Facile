@@ -121,5 +121,6 @@
 			$i++;
 		}
 	}
+	echo '<script type="text/javascript" src="/js/jquery-color.js"></script>';
 	echo '<script type="text/javascript" src="js/operations.js"></script>';	
 ?>

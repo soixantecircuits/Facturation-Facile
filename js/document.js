@@ -1,4 +1,26 @@
 var clients = {};
+var color = 255;
+var loadFinished = false;
+
+function modified(){
+    if(loadFinished){
+        color -= 1;
+        $("body").animate({ backgroundColor:"rgb("+color+","+color+","+color+")"}, "slow");
+        $('#status').text('MODIFIED');
+    }
+}
+
+window.onbeforeunload = function (evt) {
+    var message = 'Vous n\'avez pas sauvegardé, êtes-vous sûr de vouloir quitter ?';
+    if (typeof evt === 'undefined') {
+        evt = window.event;
+    }
+    if (evt) {
+        evt.returnValue = message;
+    }
+    if($('#status').text() === 'MODIFIED')
+        return message;
+}
 
 $(document).ready(function() {
     var today = new Date();
@@ -121,7 +143,7 @@ $(document).ready(function() {
         $('input').blur(function() {
             refresh();
         });
-
+        loadFinished = true;
     });
 
     // Today button
@@ -161,6 +183,9 @@ $(document).ready(function() {
 
     // Save document in XML in database
     $('#save').click(function() {
+        color = 255;
+        $("body").animate({ backgroundColor:"rgb("+color+","+color+","+color+")"}, "slow");
+
         $('#status').text('Saving...');
         var datas = "operation=save_document";
         datas += "&type=" + $('#type').text();
@@ -246,9 +271,15 @@ $(document).ready(function() {
 
     $("#sections").sortable({
         update: function(event, ui) {
+            modified();
             $("#sections").children().each(function(ind, el) {
                 $(this).attr('id', 'section' + ind);
+                $(this).find('.addLine').parent().html('<a href="#" class="addLine" onClick="addLine(\'#section' + ind + '\',\'\', 1, $(\'#default_val\').val() ); return false;">[+]</a>');
             });
+
+
+
+
         }
     });
 
@@ -308,7 +339,7 @@ function addSection(title) {
     var id = document.getElementById('id').value;
     document.getElementById('lineid').value = 0;
 
-    var new_section = '<div class="section" id="section' + id + '" > ' + '<a class="removeSection" href="#" onClick="remove($(this).parent()); return false;">[-]</a>' + '<input class="title" type="text" id="section_' + id + '" name="section_' + id + '" value="' + title + '" style="width:98%"/>' + '<table width="98%"> ' + '<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' + '<tr class="lastline"><td align=left class="line"><a href="#" onClick="addLine(\'#section' + id + '\',\'\',0,0); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' + '<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>' + '<span class="grip"></span>' + '</div>';
+    var new_section = '<div class="section" id="section' + id + '" > ' + '<a class="removeSection" href="#" onClick="remove($(this).parent()); return false;">[-]</a>' + '<input class="title" type="text" id="section_' + id + '" name="section_' + id + '" value="' + title + '" style="width:98%"/>' + '<table width="98%"> ' + '<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' + '<tr class="lastline"><td align=left class="line"><a href="#" class="addLine" onClick="addLine(\'#section' + id + '\',\'\', 1, $(\'#default_val\').val() ); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' + '<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>' + '<span class="grip"></span>' + '</div>';
 
     $("#sections").append(new_section);
     $("#section" + id).hide();
@@ -341,7 +372,9 @@ function addLine(id, description, quantity, unit_price) {
 
     $(id).find(".lastline").before(new_line);
 
-    $('#line' + (document.getElementById('id').value - 1) + lineid).find('.unit_price').val($("#default_val").val());
+
+
+    $('#line' + (document.getElementById('id').value - 1) + lineid).find('.unit_price').val(unit_price);
 
     lineid = parseInt(lineid,10) + 1;
     document.getElementById('lineid').value = lineid;
@@ -353,6 +386,13 @@ function addLine(id, description, quantity, unit_price) {
     $('input[name*="unitprice"]').blur(function() {
         refresh();
     });
+
+     $('input[name*="description"]').blur(function() {
+        refresh();
+    });
+
+    refresh();
+
 }
 
 function refresh() {
@@ -371,7 +411,7 @@ function refresh() {
     var acompte_verse = 0;
     var montant_reste = 0;
 
-    $('#status').text('MODIFIED');
+    modified();
 
     $('.section').each(function() {
 
