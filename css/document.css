@@ -1,7 +1,7 @@
 body
 {
 	position : absolute;
-	font-family: "Andale Mono";
+	font-family: "RegulontF";
 	font-size: 8pt;
 	width: 19cm;
 	left: 50%;
@@ -41,7 +41,7 @@ ul.ui-autocomplete li a
 {
 	text-decoration: none;
 	color: #000;
-	font-family: 'Andale Mono', serif;
+	font-family: 'RegulontF', serif;
 	background-color: #EEE;
 	font-size: 9px;
 }
@@ -194,7 +194,7 @@ div#remise table
 
 input, textarea
 {
-	font-family: "Andale Mono";
+	font-family: "RegulontF";
 	font-size: 8pt;
 	border: 0px;
 	background-color: #F5F5F5;
@@ -208,7 +208,7 @@ input, textarea
 
 select
 {
-	font-family: "Andale Mono";
+	font-family: "RegulontF";
 	font-size: 12pt;
 	background:white;
 	border:solid 1px gray
@@ -218,4 +218,16 @@ select
 	font-size: 15px;
 	cursor: pointer;
 	margin-left: 10px;
+}
+
+@font-face {
+    font-family: 'RegulontF';
+    src: url('fonts/andalem0n0-webfont.eot');
+    src: url('fonts/andalem0n0-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/andalem0n0-webfont.woff') format('woff'),
+         url('fonts/andalem0n0-webfont.ttf') format('truetype'),
+         url('fonts/andalem0n0-webfont.svg#RegulontF') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
