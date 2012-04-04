@@ -124,8 +124,7 @@ date et signature du client <br />(précédé de la mention «bon pour accord»)
 	$row = mysql_fetch_row($result);
 	
 	echo '<script type="text/javascript">
-	//var xmlstring = "'.str_replace('<br/>',' ',$row[1]).'";
-	var xmlstring = "'.addslashes($row[1]).'"; // osx version
+	var xmlstring = '.json_encode($row[1]).'; // osx version
 	</script>
 	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>	
 	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>	

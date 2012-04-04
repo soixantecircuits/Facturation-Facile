@@ -23,6 +23,7 @@ window.onbeforeunload = function (evt) {
 }
 
 $(document).ready(function() {
+
     var today = new Date();
     jour = today.getDay();
     numero = today.getDate();
@@ -192,17 +193,19 @@ $(document).ready(function() {
         datas += "&acompte=" + $('input[name*="acompte"]').attr('checked');
         datas += "&number=" + $('#number').text();
         datas += "&date=" + $('input[name*="date"]').val();
-        datas += "&follower=" + $('input[name*="follower"]').val();
-        datas += "&name=" + $('input[name*="name"]').val();
-        datas += "&contact=" + $('input[name*="contact"]').val();
-        datas += "&address=" + $('input[name*="address"]').val();
+        datas += "&follower=" + encodeURIComponent($('input[name*="follower"]').val());
+        datas += "&name=" + encodeURIComponent($('input[name*="name"]').val());
+        datas += "&contact=" + encodeURIComponent($('input[name*="contact"]').val());
+        datas += "&address=" + encodeURIComponent($('input[name*="address"]').val());
         datas += "&zip=" + $('input[name*="zip"]').val();
-        datas += "&city=" + $('input[name*="city"]').val();
-        datas += "&country=" + $('input[name*="country"]').val();
+        datas += "&city=" + encodeURIComponent($('input[name*="city"]').val());
+        datas += "&country=" + encodeURIComponent($('input[name*="country"]').val());
         datas += "&total_ht=" + $('input[name*="total_ht"]').val();
         datas += "&status=" + $('select[name*="current_status"]').val();
 
-        resume_lines = $('textarea[name*="resume"]').val().split("\n");
+        var resume = encodeURIComponent($('textarea[name*="resume"]').val());
+
+        resume_lines = resume.split("\n");
 
         datas += "&resume_lines=" + resume_lines.length;
 

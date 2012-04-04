@@ -6,6 +6,22 @@
 	$operation = $_GET['operation'];
 
 	switch ($operation) {
+		case "save_option":
+			require_once('ct-db_connect.php');
+			try{
+				$query = "UPDATE options SET value=".$_GET["deviss_count"]." WHERE name = 'deviss_count'";
+				$result = mysql_query($query);
+				$query = "UPDATE options SET value=".$_GET["factures_count"]." WHERE name = 'factures_count'";
+				$result = mysql_query($query);
+				$query = "UPDATE options SET value=".$_GET["estimations_count"]." WHERE name = 'estimations_count'";
+				$result = mysql_query($query);
+				echo '{"success": true, "msg":"saved"}';
+			}catch(Exception $e){
+					echo '{"success": false, "msg": '.json_encode("10").'}';
+					exit;
+			}	
+
+			break;
 		case "new_document": // OK
 			header('Content-type: text/html');
 			include 'ct-document.php';
@@ -103,19 +119,19 @@ XML;
 			$xml_output->addChild('acompte', $_GET['acompte']);
 			$xml_output->addChild('number', $_GET['number']);
 			$xml_output->addChild('date', $_GET['date']);
-			$xml_output->addChild('follower', $_GET['follower']);
+			$xml_output->addChild('follower', htmlspecialchars(urldecode($_GET['follower']), ENT_NOQUOTES, 'UTF-8'));
 			$xml_output->addChild('client');
-			$xml_output->client->addChild('name', $_GET['name']);
-			$xml_output->client->addChild('contact', $_GET['contact']);
-			$xml_output->client->addChild('address', $_GET['address']);
+			$xml_output->client->addChild('name', htmlspecialchars(urldecode($_GET['name']), ENT_NOQUOTES, 'UTF-8'));
+			$xml_output->client->addChild('contact', htmlspecialchars(urldecode($_GET['contact']), ENT_NOQUOTES, 'UTF-8'));
+			$xml_output->client->addChild('address', htmlspecialchars(urldecode($_GET['address']), ENT_NOQUOTES, 'UTF-8'));
 			$xml_output->client->addChild('zip', $_GET['zip']);
-			$xml_output->client->addChild('city', $_GET['city']);
-			$xml_output->client->addChild('country', $_GET['country']);
+			$xml_output->client->addChild('city', htmlspecialchars(urldecode($_GET['city']), ENT_NOQUOTES, 'UTF-8'));
+			$xml_output->client->addChild('country', htmlspecialchars(urldecode($_GET['country']), ENT_NOQUOTES, 'UTF-8'));
 
 			$xml_output->addChild('resume');
 			
 			for ($i = 0; $i < $_GET['resume_lines']; $i++)
-				$xml_output->resume->addChild('resume_line', str_replace(' ', '&#160;', $_GET['resume_line'.$i]));
+				$xml_output->resume->addChild('resume_line', str_replace(' ', '&#160;', htmlspecialchars(urldecode($_GET['resume_line'.$i]), ENT_NOQUOTES, 'UTF-8')));
 			
 			$nSection = -1;
 			$nItem = -1;
@@ -199,6 +215,22 @@ XML;
 				exit;
 			}
 
+			$query = "SELECT COUNT(*) FROM ".$_GET['type']."s WHERE number = ".$_GET['number'];
+			$result = mysql_query($query);
+			$row = mysql_fetch_row($result);
+
+			if($row[0]<1){
+					$numberplusplus = $_GET['number'] + 1;
+					$query = 'UPDATE options SET value = '.$numberplusplus.' WHERE name = "'. $_GET['type'].'s_count"' ;
+				try{
+					$result = mysql_query($query);			
+				}catch(Exception $e){
+					echo '{"success": false, "msg": '.json_encode("10").'}';
+					exit;
+				}	
+			}
+
+			
 			$query = 'INSERT IGNORE INTO clients (name, contact, address, zip, city, country) VALUES ("'.$_GET['name'].'","'.$_GET['contact'].'","'.$_GET['address'].'","'.$_GET['zip'].'","'.$_GET['city'].'","'.$_GET['country'].'");';
 
 			try{

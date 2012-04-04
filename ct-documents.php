@@ -1,23 +1,25 @@
-
-<?php
-	
+<?php	
 	include 'ct-db_connect.php';
-	
+	//-----------------------------------------------------------------------------------------------------
 	// get the new facture number
-	$query = "SELECT number, name, resume FROM factures ORDER BY number DESC";
+	$query = "SELECT number, name, resume, id FROM factures ORDER BY id DESC";
 	$result = mysql_query($query);
 	$row = mysql_fetch_row($result);
+
 	$last_facture_number = sprintf('%06d',$row[0]);
 	$last_year_facture = substr($last_facture_number, 0, 2);
+	
 	$last_month_facture = substr($last_facture_number, 2, 2);
 	$last_number_facture = substr($last_facture_number, 4, 2);
+	
 	if ($last_month_facture == date('m') && $last_year_facture == date('y'))
 		$FAC_new_number_facture = date('y').date('m').sprintf('%02d',($last_number_facture + 1));
 	else
 		$FAC_new_number_facture = date('y').date('m').'01';
-		
+
+	//-----------------------------------------------------------------------------------------------------	
 	// get the new devis number
-	$query = "SELECT number, name, resume FROM deviss ORDER BY number DESC";
+	$query = "SELECT number, name, resume, id FROM deviss ORDER BY id DESC";
 	$result = mysql_query($query);
 	$row = mysql_fetch_row($result);
 	$last_facture_number = sprintf('%06d',$row[0]);
@@ -28,9 +30,10 @@
 		$DEV_new_number_facture = date('y').date('m').sprintf('%02d',($last_number_facture + 1));
 	else
 		$DEV_new_number_facture = date('y').date('m').'01';
-		
+
+	//-----------------------------------------------------------------------------------------------------	
 	// get the new estimation number
-	$query = "SELECT number, name, resume FROM estimations ORDER BY number DESC";
+	$query = "SELECT number, name, resume, id FROM estimations ORDER BY id DESC";
 	$result = mysql_query($query);
 	$row = mysql_fetch_row($result);
 	$last_facture_number = sprintf('%06d',$row[0]);
@@ -42,11 +45,30 @@
 	else
 		$EST_new_number_facture = date('y').date('m').'01';
 
+	$query = "SELECT value from options WHERE name = 'estimations_count'";
+	$result = mysql_query($query);
+	$row = mysql_fetch_row($result);
+
+	$EST_new_number_facture = sprintf('%06d', $row[0]);
+
+	$query = "SELECT value from options WHERE name = 'factures_count'";
+	$result = mysql_query($query);
+	$row = mysql_fetch_row($result);
+
+	$FAC_new_number_facture = sprintf('%06d', $row[0]);
+
+	$query = "SELECT value from options WHERE name = 'deviss_count'";
+	$result = mysql_query($query);
+	$row = mysql_fetch_row($result);
+
+	$DEV_new_number_facture = sprintf('%06d', $row[0]);
+
+	//-----------------------------------------------------------------------------------------------------
 	$section = $_GET['section'];
 	
 	if ($section == 'facture' || $section == 'devis' || $section == 'estimation')
 	{
-		$query = "SELECT number, name, resume, xml, total_ht FROM ".$section."s ORDER BY number DESC";
+		$query = "SELECT number, name, resume, xml, total_ht, id FROM ".$section."s ORDER BY id DESC";
 	
 		$result = mysql_query($query);
 		
@@ -84,11 +106,19 @@
 
 			$number = sprintf('%06d', $row[0]);
 		}
-		
+
+
+		/*
 		if ($last_month_facture == date('m') && $last_year_facture == date('y'))
 			$new_number_facture = date('y').date('m').sprintf('%02d',($last_number_facture + 1));
 		else
-			$new_number_facture = date('y').date('m').'01';
+			$new_number_facture = date('y').date('m').'01';*/
+
+		$query = "SELECT value from options WHERE name = '".$section."s_count'";
+		$result = mysql_query($query);
+		$row = mysql_fetch_row($result);
+
+		$new_number_facture = sprintf('%06d', $row[0]);
 		
 		echo '<br/><a href="ct-operations.php?operation=new_document&type='.$section.'&number='.$new_number_facture.'">[+] '.$section.' '.$new_number_facture.'</a><br/>';
 		
@@ -121,6 +151,5 @@
 			$i++;
 		}
 	}
-	echo '<script type="text/javascript" src="/js/jquery-color.js"></script>';
-	echo '<script type="text/javascript" src="js/operations.js"></script>';	
+	echo '<script type="text/javascript" src="js/jquery-color.js"></script>';
 ?>

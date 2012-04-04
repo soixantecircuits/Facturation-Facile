@@ -1,5 +1,5 @@
-<?php require_once('restrict.php');?>
-
+<?php 
+require_once('restrict.php');?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
@@ -27,6 +27,7 @@ echo '
 <li> <a class="menu_link" id="devis" href="ct-documents.php?section=devis">DEVIS</a> </li>
 <li> <a class="menu_link" id="factures" href="ct-documents.php?section=facture">FACTURES</a> </li>
 <li> <a class="menu_link" id="operations" href="ct-tableau.php?">OPÉRATIONS</a> </li>
+<li> <a class="menu_link" id="options" href="ct-options.php?">OPTIONS</a> </li>
 </ul>
 
 <div id="content">';
@@ -42,6 +43,7 @@ echo '</div>'; ?>
 <script type="text/javascript" src="/js/date.js"></script>
 <script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="/js/tableau.js"></script>
+
 
 <?php
 echo'</body>';
