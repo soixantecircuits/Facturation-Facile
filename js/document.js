@@ -59,7 +59,7 @@ function toSqlDate(the_date){
     if(def_mois === null){
         console.log("error _ no date");
     } else {
-        for(var i = 1; i <= TabMois.length; i++){
+        for(var i = 0; i < TabMois.length; i++){
             if(TabMois[i].toLowerCase() === def_mois[0].toLowerCase()){
                 var date_form = new Date(i+1+"/"+def_day[0]+"/"+def_year[0]);
                 return Date_toYMD(date_form);
