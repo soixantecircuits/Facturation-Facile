@@ -1,4 +1,1 @@
-21 mai 2012 18:52:11 org.apache.fop.events.LoggingEventListener processEvent
-ATTENTION: Font "AndaleMono,normal,700" not found. Substituting with "AndaleMono,normal,400".
-21 mai 2012 18:52:11 org.apache.fop.events.LoggingEventListener processEvent
-ATTENTION: Content overflows the viewport of the fo:region-after on page 1 in block-progression direction by 3385 millipoints. (No context info available)
+sh: line 1: -c: command not found

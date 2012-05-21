@@ -120,14 +120,19 @@
 			else
 			{
 				fwrite($xmlFile, stripcslashes($row[1]));
-				$output = shell_exec('/usr/bin/fop -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
-				//$output = shell_exec('java -Djava.awt.headless=true org.apache.fop.cli.Main -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
-				//$output = shell_exec('fop -c /var/www/factures/fop.xconf -xml /var/www/factures/facture.xml -xsl /var/www/factures/facture.xsl -pdf /var/www/factures/'.$type.'/'.$type.$number.'.pdf');
-				fclose($xmlFile);
-				if (file_exists('documents/'.$type.'/'.$type.$number.'.pdf'))
-					echo '{"success": true, "msg": "pdf generated"}';
-				else
-					echo '{"success": false, "msg": "Oups, le fichier n\'a pas pu être généré. :( "}';
+				$fop_path = shell_exec('which fop');
+				if($fop_path != null){
+					$output = shell_exec($fop_path.' -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
+					//$output = shell_exec('java -Djava.awt.headless=true org.apache.fop.cli.Main -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
+					//$output = shell_exec('fop -c /var/www/factures/fop.xconf -xml /var/www/factures/facture.xml -xsl /var/www/factures/facture.xsl -pdf /var/www/factures/'.$type.'/'.$type.$number.'.pdf');
+					fclose($xmlFile);
+					if (file_exists('documents/'.$type.'/'.$type.$number.'.pdf'))
+						echo '{"success": true, "msg": "pdf generated"}';
+					else
+						echo '{"success": false, "msg": "Oups, le fichier n\'a pas pu être généré. :( "}';
+				}else{
+					echo '{"success": false, "msg": "Oups, fop ne semble pas installé. :( "}';
+				}
 				
 			}
 
