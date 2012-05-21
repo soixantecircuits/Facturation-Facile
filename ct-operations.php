@@ -58,6 +58,16 @@
 			$query = "UPDATE ".$type."s SET xml=(SELECT xml FROM ".$type." WHERE number=".$old_number.") WHERE number=".$number."";
 			$result = mysql_query($query);
 			
+
+			$numberplusplus = $_GET['number'] + 1;
+			$query = 'UPDATE options SET value = '.$numberplusplus.' WHERE name = "'. $_GET['type'].'s_count"' ;
+			try{
+				$result = mysql_query($query);
+			}catch(Exception $e){
+				echo '{"success": false, "msg": '.json_encode("10").'}';
+				exit;
+			}	
+			
 			include 'ct-document.php';
 
 			break;
@@ -79,6 +89,17 @@
 			$query = "UPDATE ".$type."s SET xml=(SELECT xml FROM ".$old_type."s WHERE number=".$old_number.") WHERE number=".$number."";
 			$result = mysql_query($query);
 			
+			$numberplusplus = $_GET['number'] + 1;
+			$query = 'UPDATE options SET value = '.$numberplusplus.' WHERE name = "'. $_GET['type'].'s_count"' ;
+			try{
+				$result = mysql_query($query);
+			}catch(Exception $e){
+				echo '{"success": false, "msg": '.json_encode("10").'}';
+				exit;
+			}	
+			
+			
+
 			include 'ct-document.php';
 
 			break;
@@ -99,16 +120,36 @@
 			else
 			{
 				fwrite($xmlFile, stripcslashes($row[1]));
-				$output = shell_exec('fop -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
+				$output = shell_exec('/usr/local/bin/fop -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
 				//$output = shell_exec('java -Djava.awt.headless=true org.apache.fop.cli.Main -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
 				//$output = shell_exec('fop -c /var/www/factures/fop.xconf -xml /var/www/factures/facture.xml -xsl /var/www/factures/facture.xsl -pdf /var/www/factures/'.$type.'/'.$type.$number.'.pdf');
 				fclose($xmlFile);
-				echo '{"success": true, "msg": "pdf generated"}';
+				if (file_exists('documents/'.$type.'/'.$type.$number.'.pdf'))
+					echo '{"success": true, "msg": "pdf generated"}';
+				else
+					echo '{"success": false, "msg": "Oups, le fichier n\'a pas pu être généré. :( "}';
+				
 			}
 
 			break;	
 
 		case "save_document": // OK
+			require_once('ct-config.php');
+			require_once('ct-db_connect.php');
+
+			$query = "SELECT COUNT(*) FROM ".$_GET['type']."s WHERE number = ".$_GET['number'];
+			$result = mysql_query($query);
+			$row = mysql_fetch_row($result);
+			if($row[0]<1){
+					$numberplusplus = $_GET['number'] + 1;
+					$query = 'UPDATE options SET value = '.$numberplusplus.' WHERE name = "'. $_GET['type'].'s_count"' ;
+				try{
+					$result = mysql_query($query);			
+				}catch(Exception $e){
+					echo '{"success": false, "msg": '.json_encode("10").'}';
+					exit;
+				}	
+			}
 		
 			$xmlstr = <<<XML
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="facture-html.xsl"?><facture></facture>
@@ -169,7 +210,6 @@ XML;
 			
 			$xml_output->addChild('remise', $_GET['remise']);
 			
-			require_once('ct-config.php');
 			if (isset($_GET['tva']))
 				$xml_output->addChild('tva', $_GET['tva']);
 			else
@@ -185,7 +225,6 @@ XML;
 				//$xml_output->resume->addChild('conditions_line', $_GET['conditions_line'.$i]);
 				$xml_output->conditions->addChild('conditions_line', str_replace(' ', '&#160;', $_GET['conditions_line'.$i]));
 			
-			require_once('ct-db_connect.php');
 			$xml = $mysqli->real_escape_string(str_replace("\n",NULL,$xml_output->asXML()));
 			
 			$query = 'INSERT INTO '.$_GET['type'].'s ('.
@@ -205,7 +244,8 @@ XML;
 			'name="'.$_GET['name'].'", '.
 			'resume="'.$_GET['resume'].'", '.
 			'total_ht="'.$_GET['total_ht'].'", '.
-			'status="'.$_GET['status'].'"';
+			'status="'.$_GET['status'].'", '.
+			'date="'.$_GET['date'].'"';
 
 			try{
 				$result = mysql_query($query);			
@@ -214,22 +254,6 @@ XML;
 				echo '{"success": false, "msg": '.json_encode("10").'}';
 				exit;
 			}
-
-			$query = "SELECT COUNT(*) FROM ".$_GET['type']."s WHERE number = ".$_GET['number'];
-			$result = mysql_query($query);
-			$row = mysql_fetch_row($result);
-
-			if($row[0]<1){
-					$numberplusplus = $_GET['number'] + 1;
-					$query = 'UPDATE options SET value = '.$numberplusplus.' WHERE name = "'. $_GET['type'].'s_count"' ;
-				try{
-					$result = mysql_query($query);			
-				}catch(Exception $e){
-					echo '{"success": false, "msg": '.json_encode("10").'}';
-					exit;
-				}	
-			}
-
 			
 			$query = 'INSERT IGNORE INTO clients (name, contact, address, zip, city, country) VALUES ("'.$_GET['name'].'","'.$_GET['contact'].'","'.$_GET['address'].'","'.$_GET['zip'].'","'.$_GET['city'].'","'.$_GET['country'].'");';
 

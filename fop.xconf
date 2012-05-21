@@ -61,9 +61,8 @@ the location of this file.
       </filterList>
 
       <fonts>
-		<!--<directory recursive="true">/System/Library/Fonts</directory>-->
         <directory recursive="false">/usr/share/fonts/truetype</directory>
-	      <auto-detect/>
+	      <!--<auto-detect/> -->
         <!-- embedded fonts -->
         <!--
         This information must exactly match the font specified
@@ -82,7 +81,7 @@ the location of this file.
           <font-triplet name="AndaleMono-BoldItalic" style="italic" weight="bold"/>
         </font>
         <font metrics-url="/usr/share/fonts/truetype/AndaMoB.xml" kerning="yes" embed-url="/usr/share/fonts/truetype/AndaMoB.ttf">
-          <font-triplet name="AndaleMono-Bold" style="italic" weight="bold"/>
+          <font-triplet name="AndaleMono-Bold" style="normal" weight="bold"/>
         </font>
     <!--
         for the font triplet specified by:

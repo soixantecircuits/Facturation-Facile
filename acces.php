@@ -50,8 +50,6 @@ if (isset($_POST['log'])) {
 
      $loginStrGroup = "";
 
-    
-
     //declare two session variables and assign them
 
     $GLOBALS['MM_Username'] = $loginUsername;

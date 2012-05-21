@@ -1,1 +1,4 @@
-sh: java: command not found
+21 mai 2012 15:42:36 org.apache.fop.events.LoggingEventListener processEvent
+ATTENTION: Font "AndaleMono,normal,700" not found. Substituting with "AndaleMono,normal,400".
+21 mai 2012 15:42:36 org.apache.fop.events.LoggingEventListener processEvent
+ATTENTION: Content overflows the viewport of the fo:region-after on page 1 in block-progression direction by 3385 millipoints. (No context info available)

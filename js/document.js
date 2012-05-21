@@ -1,6 +1,10 @@
+"use strict";
+
 var clients = {};
 var color = 255;
 var loadFinished = false;
+var TabJour = new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
+var TabMois = new Array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "décembre");
 
 function modified(){
     if(loadFinished){
@@ -8,6 +12,20 @@ function modified(){
         $("body").animate({ backgroundColor:"rgb("+color+","+color+","+color+")"}, "slow");
         $('#status').text('MODIFIED');
     }
+}
+
+function Date_toYMD(d) {
+    var year, month, day;
+    year = String(d.getFullYear());
+    month = String(d.getMonth() + 1);
+    if (month.length == 1) {
+        month = "0" + month;
+    }   
+    day = String(d.getDate());
+    if (day.length == 1) {
+        day = "0" + day;
+    }
+    return year + "-" + month + "-" + day;
 }
 
 window.onbeforeunload = function (evt) {
@@ -20,21 +38,42 @@ window.onbeforeunload = function (evt) {
     }
     if($('#status').text() === 'MODIFIED')
         return message;
+};
+
+function toSqlDate(the_date){
+    var re = new RegExp('[a-z]+',"g");
+    var def_mois = re.exec(the_date);
+
+    re = new RegExp('[0-9]+',"g");
+    var def_day = re.exec(the_date);
+
+    re = new RegExp('\[0-9]+(?!.*\[0-9])',"g");
+    var def_year = re.exec(the_date);
+
+
+    if(def_mois === null){
+        console.log("error _ no date");
+    } else {
+        for(var i = 1; i <= TabMois.length; i++){
+            if(TabMois[i] == def_mois){
+                var date_form = new Date(i+1+"/"+def_day[0]+"/"+def_year[0]);
+                return Date_toYMD(date_form);
+            }
+        }
+    }
 }
 
 $(document).ready(function() {
 
     var today = new Date();
-    jour = today.getDay();
-    numero = today.getDate();
+    var jour = today.getDay();
+    var numero = today.getDate();
     if (numero < 10) numero = "0" + numero;
 
-    mois = today.getMonth();
-    annee = today.getFullYear();
+    var mois = today.getMonth();
+    var annee = today.getFullYear();
 
-    TabJour = new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
-    TabMois = new Array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "décembre");
-    messageDate = numero + " " + TabMois[mois] + " " + annee;
+    var messageDate = numero + " " + TabMois[mois] + " " + annee;
 
     $('input[name*="number"]').val($('#number').text());
     $('input[name*="tva"]').val(0.196);
@@ -173,11 +212,14 @@ $(document).ready(function() {
             url: "ct-operations.php",
             data: "operation=getpdf&type=" + type + "&number=" + number,
             dataType: "json",
-            success: function(msg) {
-                if (msg) $('#status').text(msg);
+            success: function(data) {
+                if (data) $('#status').text(data);
 
                 $('#status').text('GET PDF');
-                window.open('documents/' + type + '/' + type + number + '.pdf');
+                if(data.success)
+                    window.open('documents/' + type + '/' + type + number + '.pdf');
+                else
+                    alert(data.msg);
             }
         });
     });
@@ -202,10 +244,11 @@ $(document).ready(function() {
         datas += "&country=" + encodeURIComponent($('input[name*="country"]').val());
         datas += "&total_ht=" + $('input[name*="total_ht"]').val();
         datas += "&status=" + $('select[name*="current_status"]').val();
+        datas += "&date="+ toSqlDate($('input[name*="date"]').val());
 
         var resume = encodeURIComponent($('textarea[name*="resume"]').val());
 
-        resume_lines = resume.split("\n");
+        var resume_lines = resume.split("\n");
 
         datas += "&resume_lines=" + resume_lines.length;
 
@@ -225,7 +268,6 @@ $(document).ready(function() {
                     datas += "&" + $(this).find('.description').attr("name") + "=" + $(this).find('.description').val();
                     datas += "&" + $(this).find('.quantity').attr("name") + "=" + $(this).find('.quantity').val();
                     datas += "&" + $(this).find('.unit_price').attr("name") + "=" + $(this).find('.unit_price').val();
-
                 }
             });
         });
@@ -251,7 +293,7 @@ $(document).ready(function() {
             return 0;
         }
 
-        conditions_lines = $('textarea[name*="conditions"]').val().split("\n");
+        var conditions_lines = $('textarea[name*="conditions"]').val().split("\n");
 
         datas += "&conditions_lines=" + conditions_lines.length;
 
@@ -279,10 +321,6 @@ $(document).ready(function() {
                 $(this).attr('id', 'section' + ind);
                 $(this).find('.addLine').parent().html('<a href="#" class="addLine" onClick="addLine(\'#section' + ind + '\',\'\', 1, $(\'#default_val\').val() ); return false;">[+]</a>');
             });
-
-
-
-
         }
     });
 

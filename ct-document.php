@@ -49,8 +49,7 @@ foreach($status_available as $value)
   	echo "<option value=$value>$value</option>";
 echo "</select>";
 ?>
-</td><td width="36%" class="title"><text id="type"><?php echo $_GET['type']?></text>
-N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
+</td><td width="36%" class="title"><text id="type"><?php echo $_GET['type']?></text>N°<text id="number"><?php echo $_GET['number']?></text></td></tr>
 
 <tr><td></td><td></td><td><input id="date" type="text" name="date" size="30" maxlength="30"/> <button class="btn" type="button" id="today">Today</button> </td></tr>
 <tr><td></td><td></td><td>Affaire suivie par <input type="text" name="follower" size="20" maxlength="20"/> </td></tr>
@@ -70,7 +69,7 @@ N&#176;  <text id="number"><?php echo $_GET['number']?></text></td></td></tr>
 <div id="options">
 	<text class="title">Options</text><br />
 	<div id="options_content">
-		Montant journalier par défaut : <input name="default_val" type="text" id="default_val" value="450" style="width:5%;"/><span id="update_default_val">☑<span>
+		Montant journalier par défaut : <input name="default_val" type="text" id="default_val" value="450" style="width:5%;"/><span id="update_default_val">☑</span>
 	</div>
 </div>
 
