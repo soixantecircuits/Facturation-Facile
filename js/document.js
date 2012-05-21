@@ -28,6 +28,11 @@ function Date_toYMD(d) {
     return year + "-" + month + "-" + day;
 }
 
+function sqlToDate(d){
+    var separate_date = d.split("-");
+    return separate_date[2]+" "+TabMois[separate_date[1]-1]+" "+separate_date[0];
+}
+
 window.onbeforeunload = function (evt) {
     var message = 'Vous n\'avez pas sauvegardé, êtes-vous sûr de vouloir quitter ?';
     if (typeof evt === 'undefined') {
@@ -55,7 +60,7 @@ function toSqlDate(the_date){
         console.log("error _ no date");
     } else {
         for(var i = 1; i <= TabMois.length; i++){
-            if(TabMois[i] == def_mois){
+            if(TabMois[i].toLowerCase() === def_mois[0].toLowerCase()){
                 var date_form = new Date(i+1+"/"+def_day[0]+"/"+def_year[0]);
                 return Date_toYMD(date_form);
             }
@@ -105,7 +110,7 @@ $(document).ready(function() {
             $('#ligne_montant_reste').hide();
         }
 
-        $('input[name*="date"]').val(date);
+        $('input[name*="date"]').val(sqlToDate(date));
         $('input[name*="follower"]').val(follower);
 
         var client_name = $(this).find('client').find('name').text();
