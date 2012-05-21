@@ -41,7 +41,7 @@ window.onbeforeunload = function (evt) {
 };
 
 function toSqlDate(the_date){
-    var re = new RegExp('[a-z]+',"g");
+    var re = new RegExp('[A-z]+',"g");
     var def_mois = re.exec(the_date);
 
     re = new RegExp('[0-9]+',"g");

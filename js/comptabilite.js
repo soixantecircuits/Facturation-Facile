@@ -1,4 +1,5 @@
 $(function(){
+	$( ".date_picker" ).datepicker();
 
 	$('.menu_link').click(function() {
 		ajax_page('#content', '<p style="text-align: center">Chargement ...</p>', this.href);
