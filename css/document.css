@@ -8,6 +8,13 @@ body
 	margin-left: -9.5cm;
 }
 
+.loading{
+	display: block;
+	height:16px;
+	width:16px;
+	background-image: url(images/loading.gif) no-repeat;
+}
+
 a
 {
 	text-decoration: none;

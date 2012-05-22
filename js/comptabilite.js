@@ -40,6 +40,38 @@ function ajax_page(ele, msg, url) {
 				return false;
 			});
 		}
+		$("#bulk_action_button").click(function(){
+			var loader = $('<div>',{
+				class:'loading'
+			});
+
+			if($("#documents_number").length > 0){
+				$("#documents_number").after(loader);
+			}
+
+			$.ajax({
+				type:"GET",
+				url:this.href,
+				data:$("#bulk_action").serialize(),
+				dataType:'json',
+				success: function(data){
+					var msg = data.msg;
+					if($("#documents_number").length < 1){
+						var span = $('<span>', {
+							text: msg,
+							id: "documents_number"
+						});
+						$("#bulk_action_button").after(span);
+					}
+					else{
+						$("#documents_number").html(msg);
+					}
+					$(".loading").remove();
+					window.open(data.filename,"_self");
+				}
+			});
+			return false;
+		});
 		$( ".date_picker" ).datepicker({ dateFormat: "yy-mm-dd", onSelect:function(){
 		$.ajax({
 			type:"GET",
@@ -47,8 +79,8 @@ function ajax_page(ele, msg, url) {
 			data:"operation=number_of_docs&" + $("#bulk_action").serialize(),
 			dataType:'json',
 			success: function(data){
+				var msg = " "+ data.msg + " documents";
 				if($("#documents_number").length < 1){
-					var msg = " "+ data.msg + " documents";
 					var span = $('<span>', {
 						text: msg,
 						id: "documents_number"
@@ -56,7 +88,7 @@ function ajax_page(ele, msg, url) {
 					$("#bulk_action_button").after(span);
 				}
 				else{
-					$("#documents_number").text(msg);
+					$("#documents_number").html(msg);
 				}
 			}
 		});

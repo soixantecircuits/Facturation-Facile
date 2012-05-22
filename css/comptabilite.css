@@ -13,6 +13,16 @@ a {
   text-decoration: none;
 }
 
+.loading{
+display: inline;
+height: 16px;
+width: 16px;
+background: url(images/loading.gif) no-repeat;
+padding: 2px 8px;
+margin: 0px 11px;
+}
+
+
 a:hover {
   color: red;
 }
