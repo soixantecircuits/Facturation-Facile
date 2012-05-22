@@ -122,7 +122,7 @@
 			else
 			{
 				fwrite($xmlFile, stripcslashes($row[1]));
-				$fop_path = shell_exec('which fop');
+				$fop_path = shell_exec("which fop | tr -d '\n'");
 				if($fop_path != null){
 					$output = shell_exec($fop_path.' -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
 					//$output = shell_exec('java -Djava.awt.headless=true org.apache.fop.cli.Main -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/'.$type.'/'.$type.$number.'.pdf 2> log.txt');
