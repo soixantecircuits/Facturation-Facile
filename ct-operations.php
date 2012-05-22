@@ -131,7 +131,7 @@
 					if (file_exists('documents/'.$type.'/'.$type.$number.'.pdf'))
 						echo '{"success": true, "msg": "pdf generated"}';
 					else
-						echo '{"success": false, "msg": "Oups, le fichier n\'a pas pu être généré. :( "}';
+						echo '{"success": false, "msg": "Oups, le fichier n\'a pas pu être généré. :( --'.$fop_path.'"}';
 				}else{
 					echo '{"success": false, "msg": "Oups, fop ne semble pas installé. :( "}';
 				}
