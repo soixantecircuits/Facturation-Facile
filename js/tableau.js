@@ -13,9 +13,9 @@ function operations_selection() {
       refresh_tab();
     },
     error: function(jqXHR, textStatus, errorThrown){
-      console.log(jqXHR);
+      /*console.log(jqXHR);
       console.log(textStatus);
-      console.log(errorThrown);
+      console.log(errorThrown);*/
     }
   });
 }

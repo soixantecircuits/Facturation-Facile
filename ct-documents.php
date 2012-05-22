@@ -124,7 +124,7 @@
 		
 		?>
 		<p>Export de masse (choisissez un interval et cliquez sur GO) :</p>
-		<p><form id="bulk_action">Date de début : <input type="text" name="date_begin" class="date_picker" id="date_begin" size="20"/>, date de fin : <input type="text" name="date_end" class="date_picker" id="date_end" size="20"/> <a class="button" id="bulk_action" href="ct-bulk.php?operation=bulk_export">GO</a></form></p>
+		<p><form id="bulk_action"><input id="type" type="text" style="display:none;" name="type" value="<?php echo $section ?>"/>Date de début : <input type="text" name="date_begin" class="date_picker" id="date_begin" size="20"/>, date de fin : <input type="text" name="date_end" class="date_picker" id="date_end" size="20"/> <a class="button" id="bulk_action_button" href="ct-bulk.php?operation=bulk_export">GO</a></form></p>
 		<?php
 
 		$i = 0;

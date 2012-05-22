@@ -1,4 +1,12 @@
 <?php
+function sqlToDate($d){
+		$TabMois = array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "décembre");
+    $separate_date = split('-',$d);
+    return $separate_date[2]." ".$TabMois[$separate_date[1]-1]." ".$separate_date[0];
+	} 
+?>
+
+<?php
 	header('Cache-Control: no-cache, must-revalidate');
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Content-type: application/json');
@@ -166,7 +174,7 @@ XML;
 			$xml_output->addChild('type', $_GET['type']);
 			$xml_output->addChild('acompte', $_GET['acompte']);
 			$xml_output->addChild('number', $_GET['number']);
-			$xml_output->addChild('date', $_GET['date']);
+			$xml_output->addChild('date', sqlToDate($_GET['date']));
 			$xml_output->addChild('follower', htmlspecialchars(urldecode($_GET['follower']), ENT_NOQUOTES, 'UTF-8'));
 			$xml_output->addChild('client');
 			$xml_output->client->addChild('name', htmlspecialchars(urldecode($_GET['name']), ENT_NOQUOTES, 'UTF-8'));

@@ -29,8 +29,15 @@ function Date_toYMD(d) {
 }
 
 function sqlToDate(d){
-    var separate_date = d.split("-");
-    return separate_date[2]+" "+TabMois[separate_date[1]-1]+" "+separate_date[0];
+    var re = new RegExp("[^\\d]+","g");
+    var def_mois = re.exec(d);
+
+    if(def_mois === null){
+        var separate_date = d.split("-");
+        return separate_date[2]+" "+TabMois[separate_date[1]-1]+" "+separate_date[0];
+    }else{
+        return d;
+    }
 }
 
 window.onbeforeunload = function (evt) {
