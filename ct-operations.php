@@ -115,8 +115,10 @@
 			
 			$output = shell_exec('ls > log.txt');
 			
-			if (!($xmlFile = fopen("documents/document.xml","w")))
+			if (!($xmlFile = fopen("documents/document.xml","w"))){
+				echo '{"success": false, "msg": "Oups, le fichier temporaire n\'a pas été généré. :( "}';
 				exit("Unable to open file!"); 
+			}
 			else
 			{
 				fwrite($xmlFile, stripcslashes($row[1]));
