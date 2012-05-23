@@ -5,14 +5,11 @@ function sqlToDate($d){
     return $separate_date[2]." ".$TabMois[$separate_date[1]-1]." ".$separate_date[0];
 	} 
 ?>
-
 <?php
 	header('Cache-Control: no-cache, must-revalidate');
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Content-type: application/json');
-
 	$operation = $_GET['operation'];
-
 	switch ($operation) {
 		case "save_option":
 			require_once('ct-db_connect.php');
