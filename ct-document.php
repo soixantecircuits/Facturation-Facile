@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title> <?php if (isset($_GET['type'])) echo filter_var($_GET['type'], FILTER_SANITIZE_STRING); ?> - Soixante circuits</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
 <link rel="stylesheet" type="text/css" href="css/document.css"/>
 <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css"/>
 <link rel="stylesheet" type="text/css" href="css/comptabilite.css"/>
@@ -13,14 +15,15 @@
 
 <body>
 
+<div id="wrapper">
+
 <div id="entete">
 
 <a id="return" href="index.php">[RETURN]</a>
 <text>|</text>
 <text id="status"></text>
-<form>
+<form id="header">
 <table width="100%" >
-
 <input type="hidden" name="type" value="'.$_GET['type'].'" />
 <tr><td width="40.7%"></td><td width="23.3%">
 <?php
@@ -52,11 +55,11 @@ echo "</select>";
 </td><td width="36%" class="title"><text id="type"><?php echo $_GET['type']?></text>N°<text id="number"><?php echo $_GET['number']?></text></td></tr>
 
 <tr><td></td><td></td><td><input id="date" type="text" name="date" size="30" maxlength="30"/> <button class="btn" type="button" id="today">Today</button> </td></tr>
-<tr><td></td><td></td><td>Affaire suivie par <input type="text" name="follower" size="20" maxlength="20"/> </td></tr>
-<tr><td></td><td>31, rue Louis Blanc</td><td><input type="text" id="clients_name" name="name" style="width:50%;" maxlength="40"/> <input type="text" id="contact" name="contact" style="width:46%;" maxlength="40"/></td></tr>
-<tr><td></td><td>75010 Paris</td><td><input type="text" id="address" name="address" style="width:100%;" maxlength="100"/></td></tr>
-<tr><td></td><td>Tel. : 01 80 50 76 14</td><td><input type="text" id="zip" name="zip" style="width:15%;" maxlength="5"/> <input type="text" name="city" style="width:81%;" id="city" maxlength="31"/></td></tr>
-<tr><td></td><td>www.soixantecircuits.fr</td><td><input id="country" type="text" name="country" style="width:100%;" maxlength="40"/></td></tr>
+<tr><td></td><td></td><td>Affaire suivie par <input type="text" name="follower" id="follower" size="20" maxlength="20"/> </td></tr>
+<tr><td></td><td>31, rue Louis Blanc</td><td><input type="text" id="clients_name" name="name" style="width:43%;" maxlength="40"/> <input type="text" id="contact" name="contact" style="width:46%;" maxlength="40"/></td></tr>
+<tr><td></td><td>75010 Paris</td><td><input type="text" id="address" name="address" style="width:95%;" maxlength="100"/></td></tr>
+<tr><td></td><td>Tel. : 01 80 50 76 14</td><td><input type="text" id="zip" name="zip" style="width:15%;" maxlength="5"/> <input type="text" name="city" style="width:74%;" id="city" maxlength="31"/></td></tr>
+<tr><td></td><td>www.soixantecircuits.fr</td><td><input id="country" type="text" name="country" style="width:95%;" maxlength="40"/></td></tr>
 
 </table>
 
@@ -82,7 +85,7 @@ echo "</select>";
 <input type="hidden" id="lineid" value="0" />
 <div id="sections"></div>
 
-<p id="addSection"><a href="#" onClick="addSection('TITRE'); return false;">[+]</a></p>
+<p id="addSection"><a href="#" onClick="addSection('TITRE'); return false;">[ + ]</a></p>
 
 <div id="remise">
 <table width="100%">
@@ -110,6 +113,7 @@ echo "</select>";
 date et signature du client <br />(précédé de la mention «bon pour accord»)
 </div>
 </form>
+</div>
 </body>
 </html>
 

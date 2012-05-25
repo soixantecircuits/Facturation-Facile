@@ -124,36 +124,49 @@
 		
 		?>
 		<p>Export de masse (choisissez un interval et cliquez sur GO) :</p>
-		<p><form id="bulk_action"><input id="type" type="text" style="display:none;" name="type" value="<?php echo $section ?>"/>Date de début : <input type="text" name="date_begin" class="date_picker" id="date_begin" size="20"/>, date de fin : <input type="text" name="date_end" class="date_picker" id="date_end" size="20"/> <a class="button" id="bulk_action_button" href="ct-bulk.php?operation=bulk_export">GO</a></form></p>
+		<p><form id="bulk_action"><input id="type" type="text" style="display:none;" name="type" value="<?php echo $section ?>"/>Date de début : <input type="text" name="date_begin" class="date_picker" id="date_begin" size="20"/>, date de fin : <input type="text" name="date_end" class="date_picker" id="date_end" size="20"/> <a class="btn" id="bulk_action_button" href="ct-bulk.php?operation=bulk_export">GO</a></form></p>
 		<?php
 
 		$i = 0;
-		
-		foreach ($factures as $number)
+		?>
+		<table>
+    	<thead>
+        <tr>
+            <th><?php echo $section;?></th>
+            <th>Résumé</th>
+            <th>Budget(€)</th>
+            <th>Opération</th>
+        </tr>
+    	</thead>
+    	<tbody>
+
+		<?php foreach ($factures as $number)
 		{
-			echo '<div class="document-line">';
-			echo '<a class="open_document" href="ct-document.php?type='.$section.'&number='.$number.'" title="'.$resumes[$i].'">'.$section.' '.$number.'</a> ';
-			echo '<text class="main">'.$names[$i].', <span style="width:100%;white-space: nowrap;overflow: hidden;-o-text-overflow: ellipsis;text-overflow:ellipsis;font-style:italic;">'.$resumes[$i].'</span></text> ';
-
-			echo '<span class="price">'.$total_ht[$i].' € HT</span> ';
-
-			echo '<a class="delete_document" id="'.$section.$number.'" onClick="return confirm(\'Supprimer ?\')">[-]</a>';
-			echo '<a class="copy_document" id="'.$section.$number.$new_number_facture.'"  href="ct-operations.php?operation=copy_document&type='.$section.'&old_number='.$number.'&number='.$new_number_facture.'">[+]</a>';
-			if ($section == 'devis')
-			{
-				echo '<a class="transform_document" href="ct-operations.php?operation=transform_document&old_number='.$number.'&number='.$FAC_new_number_facture.'&old_type=devis&type=facture">[facture]</a>';
-			}
-			else if ($section == 'estimation')
-			{
-				echo '<a class="transform_document" href="ct-operations.php?operation=transform_document&old_number='.$number.'&number='.$DEV_new_number_facture.'&old_type=estimation&type=devis">[devis]</a>';
-				echo '<a class="transform_document" href="ct-operations.php?operation=transform_document&old_number='.$number.'&number='.$FAC_new_number_facture.'&old_type=estimation&type=facture">[facture]</a>';
-				
-			}
-
-				
-			echo '<br/>';
-			echo '</div>';
-			$i++;
+			?>
+			<tr class="document-line">
+        			<td><a class="open_document" href="ct-document.php?type=<?php echo $section;?>&number=<?php echo $number;?>" title="<?php $resumes[$i];?>"><?php echo $section.' '.$number;?></a></td>
+							<td><text class="main"><?php echo $names[$i];?>, <span style="width:100%;white-space: nowrap;overflow: hidden;-o-text-overflow: ellipsis;text-overflow:ellipsis;font-style:italic;"><?php echo $resumes[$i]; ?></span></text></td>
+							<td class="price"><?php echo $total_ht[$i];?> € HT</td>
+							<td class="action">
+								<a class="delete_document" id="<?php echo $section.$number; ?>" onClick="return confirm(\'Supprimer ?\')">[-]</a>
+								<a class="copy_document" id="<?php echo $section.$number.$new_number_facture; ?>"  href="ct-operations.php?operation=copy_document&type=<?php echo $section.'&old_number='.$number.'&number='.$new_number_facture;?>">[+]</a>
+								<?php if ($section == 'devis')
+								{?>
+									<a class="transform_document" href="ct-operations.php?operation=transform_document&old_number=<?php echo $number.'&number='.$FAC_new_number_facture;?>&old_type=devis&type=facture">[facture]</a>
+								<?php
+								}
+								else if ($section == 'estimation')
+								{
+								?>
+									<a class="transform_document" href="ct-operations.php?operation=transform_document&old_number=<?php echo $number.'&number='.$DEV_new_number_facture;?>&old_type=estimation&type=devis">[devis]</a>
+									<a class="transform_document" href="ct-operations.php?operation=transform_document&old_number=<?php echo $number.'&number='.$FAC_new_number_facture;?>&old_type=estimation&type=facture">[facture]</a>
+								<?php
+								}
+							?>							
+							</td>
+			</tr>
+	<?php $i++;
 		}
-	}
-?>
+	}?>
+	  	</tbody>
+		</table>

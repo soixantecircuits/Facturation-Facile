@@ -1,10 +1,40 @@
 body {
   position : absolute;
   font-family: "RegulontF";
+  background-image: url(img/grid-18px-masked.png);
   font-size: 8pt;
   /*width: 19cm;
   left: 50%;
   margin-left: -9.5cm;*/
+}
+
+input:-webkit-autofill {
+  background:none;
+}
+
+#bulk_action_button{
+  margin-bottom: 10px;
+}
+
+#container{
+  margin-left: 10px;
+}
+
+#presente{
+  margin-left:10px;
+}
+
+#barretitre{
+  margin:10px;
+}
+
+#barretitre input:-webkit-autofill {
+  background-color: #cdffbd !important;
+  color: black;
+}
+
+#barretitre .btn {
+  margin-bottom: 10px;
 }
 
 a {
@@ -66,6 +96,11 @@ span.price {
 
 .document-line:nth-child(2n){
   background:#EEE;
+  background-color: rgba(0,0,0,0.1);
+}
+
+td.price{
+  text-align: right;
 }
 
 #content text {

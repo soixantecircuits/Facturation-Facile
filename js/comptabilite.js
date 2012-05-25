@@ -6,6 +6,16 @@ window.location.href.replace(
     function($0, $1, $2, $3) { queryString[$1] = $3; }
 );
 
+if (navigator.userAgent.toLowerCase().indexOf("chrome") >= 0) {
+	$(window).load(function(){
+    $('input:-webkit-autofill').each(function(){
+        var text = $(this).val();
+        var name = $(this).attr('name');
+        $(this).after(this.outerHTML).remove();
+        $('input[name=' + name + ']').val(text);
+    });
+});}
+
 $(function(){
 	$('.menu_link').click(function() {
 		ajax_page('#content', '<p style="text-align: center">Chargement ...</p>', this.href);

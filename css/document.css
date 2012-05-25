@@ -7,6 +7,42 @@ body
 	left: 50%;
 	margin-left: -9.5cm;
 }
+#current_status{
+	height: 10px;
+	margin-bottom: 0px;
+}
+
+#date{
+	width:180px;
+}
+
+#today{
+    margin-bottom: 8px;
+    padding: 1px 9px;
+}
+
+#follower{
+	width:43%;
+}
+
+#wrapper{
+	line-height:16px;
+}
+
+
+form#header input{
+	display: inline-block;
+height: 12px;
+padding: 0px 4px;
+margin-bottom: 1px;
+line-height: 7px;
+color: #555;
+background-color: white;
+border: 1px solid #CCC;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+}
 
 .loading{
 	display: block;
@@ -70,6 +106,12 @@ tr.designation{
 	font-weight: bold;
 	}
 
+#wrapper{
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.02);
+	width: 718px;
+}
+
 #entete
 {
 	width: 19cm;
@@ -87,7 +129,18 @@ tr.designation{
 }
 
 #resume textarea{
-	width:100%;
+	width:98%;
+}
+
+#conditions textarea{
+	width: 530px;
+	height: 130px;
+}
+
+.unit{
+	text-align: right;
+	float: right;
+	padding-top: 6px;
 }
 
 .title
@@ -100,6 +153,8 @@ tr.designation{
 {
 	position: relative;
 	margin-top: 0.5cm;
+	width: 96%;
+	margin-left: 27px;
 }
 
 .grip {
@@ -130,7 +185,7 @@ tr.designation{
 
 #addSection
 {
-	margin-left:-30px;
+	margin-left:0px;
 	font-size: 12pt;
 }
 
@@ -204,7 +259,7 @@ input, textarea
 	font-family: "RegulontF";
 	font-size: 8pt;
 	border: 0px;
-	background-color: #F5F5F5;
+	background-color: white;
 }
 
 .modifiy
