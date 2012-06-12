@@ -13,7 +13,7 @@
 	define('DB_USER', 'root');
 	
 	/** MySQL database password */
-	define('DB_PASSWORD', 'xxxx');
+	define('DB_PASSWORD', 'histoire');
 	
 	/** MySQL hostname */
 	define('DB_HOST', 'localhost');
@@ -85,9 +85,10 @@
                 'Charges atelier' => array('Loyer','Electricité','Internet','Entretien et travaux atelier'),
                 'Produit' => array('Encaissement projet','Aide à la production'),
                 'Impôts et taxes'=> array('TVA','IS','Impôts et taxes (indirects)') );
-                
+ 	
 
-$comptes = array('Compte','CB','Caisse');
+
+	$comptes = array('Compte','CB','Caisse');
 
 	
 ?>
