@@ -48,8 +48,10 @@ window.onbeforeunload = function (evt) {
     if (evt) {
         evt.returnValue = message;
     }
-    if($('#status').text() === 'MODIFIED')
+    var status = $('#status').text();
+    if(status === 'MODIFIED' || status === ""){
         return message;
+    }
 };
 
 function toSqlDate(the_date){
@@ -104,7 +106,7 @@ $(document).ready(function() {
 
         if (type == "facture") {
             $('#type').after('(<input type="checkbox" name="acompte">aco.)');
-            if (acompte == "true") {
+            if (acompte == "checked") {
                 $('input[name*="acompte"]').attr('checked', "true");
             } else {
                 $('#ligne_acompte').hide();
