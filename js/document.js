@@ -257,6 +257,7 @@ $(document).ready(function() {
         datas += "&city=" + encodeURIComponent($('input[name*="city"]').val());
         datas += "&country=" + encodeURIComponent($('input[name*="country"]').val());
         datas += "&total_ht=" + $('input[name*="total_ht"]').val();
+        datas += "&tva=" + $('input[name*="tva"]').val();
         datas += "&status=" + $('select[name*="current_status"]').val();
         datas += "&date="+ toSqlDate($('input[name*="date"]').val());
 
