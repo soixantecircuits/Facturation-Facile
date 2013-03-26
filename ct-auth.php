@@ -14,8 +14,6 @@ if (isset($accesscheck)) {
 
   $GLOBALS['PrevUrl'] = $accesscheck;
 
-  session_register('PrevUrl');
-
   $_SESSION['PrevUrl']=$accesscheck;
 
 }
@@ -57,16 +55,9 @@ if (isset($_POST['log'])) {
     $GLOBALS['MM_UserGroup'] = $loginStrGroup;        
 
 
+    $_SESSION['MM_Username']=$loginUsername;
 
-    //register the session variables
-
-    session_register("MM_Username");
-
-    session_register("MM_UserGroup");
-
-  $_SESSION['MM_Username']=$loginUsername;
-
-  $_SESSION['MM_UserGroup']=$loginStrGroup;
+    $_SESSION['MM_UserGroup']=$loginStrGroup;
 
 
 
