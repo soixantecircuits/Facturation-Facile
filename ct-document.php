@@ -36,7 +36,6 @@ $query = 'SELECT status FROM '.$_GET['type'].'s WHERE number = '.$_GET["number"]
 
 try{
 	$result = mysql_query($query);			
-	$firstquery = json_encode($result);
 }catch(Exception $e){
 	echo '{"success": false, "msg": '.json_encode("10").'}';
 	exit;

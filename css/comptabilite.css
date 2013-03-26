@@ -129,6 +129,7 @@ a.open_document{
 }
 
 #menu li a {
+  cursor: pointer;
   padding: .2em 1em;
   color: #fff;
   background-color: #036;

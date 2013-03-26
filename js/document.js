@@ -395,7 +395,7 @@ function addSection(title) {
     var id = document.getElementById('id').value;
     document.getElementById('lineid').value = 0;
 
-    var new_section = '<div class="section" id="section' + id + '" > ' + '<a class="removeSection" href="#" onClick="remove($(this).parent()); return false;">[-]</a>' + '<input class="title" type="text" id="section_' + id + '" name="section_' + id + '" value="' + title + '" style="width:98%"/>' + '<table width="98%"> ' + '<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' + '<tr class="lastline"><td align=left class="line"><a href="#" class="addLine" onClick="addLine(\'#section' + id + '\',\'\', 1, $(\'#default_val\').val() ); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' + '<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>' + '<span class="grip"></span>' + '</div>';
+    var new_section = '<div class="section" id="section' + id + '" > ' + '<a class="removeSection" href="#" onClick="console.log($(this));removeElement($(this).parent()); return false;">[-]</a>' + '<input class="title" type="text" id="section_' + id + '" name="section_' + id + '" value="' + title + '" style="width:98%"/>' + '<table width="98%"> ' + '<tr><td width="57.4%" align=left class="linefirst">D&Eacute;SIGNATION</td> <td width="8.9%" align=right class="linefirst">QT&Eacute;</td> <td width="16.8%" align=right class="linefirst">PRIX UNIT. HT</td> <td width="16.8%" align=right class="linefirst">MONTANT HT</td></tr> ' + '<tr class="lastline"><td align=left class="line"><a href="#" class="addLine" onClick="addLine(\'#section' + id + '\',\'\', 1, $(\'#default_val\').val() ); return false;">[+]</a></td> <td class="line"></td> <td class="line"></td> <td align=right class="line"></td></tr>' + '<tr><td align=left class="line">TOTAL </td> <td class="line"></td> <td class="line"></td> <td align=right class="line"><text id="montant_total">0</text> &euro;</td></tr></table>' + '<span class="grip"></span>' + '</div>';
 
     $("#sections").append(new_section);
     $("#section" + id).hide();
@@ -414,7 +414,7 @@ function addSection(title) {
     return return_id;
 }
 
-function remove(id) {
+function removeElement(id) {
     $(id).slideUp("fast", function() {
         $(id).remove();
         refresh();
@@ -424,7 +424,7 @@ function remove(id) {
 function addLine(id, description, quantity, unit_price) {
     var lineid = document.getElementById('lineid').value;
 
-    var new_line = '<tr class="line" id="line' + (document.getElementById('id').value - 1) + lineid + '"><td align=right><a class="removeLine" href="#" onClick="remove($(this).parents(\'tr\')); return false;">[-]</a><input class="description" type="text" name="description_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + description + '" style="width:95.8%" /></td><td align=right><input class="quantity" type="text" name="quantity_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + quantity + '" style="width:90%; text-align:right" /></td><td align=left ><input class="unit_price" type="text" name="unitprice_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + unit_price + '" style="width:85%; text-align:right"/><div class="unit">&euro;</div></td><td align=right><text class="montant" >0</text> &euro;</td></tr>';
+    var new_line = '<tr class="line" id="line' + (document.getElementById('id').value - 1) + lineid + '"><td align=right><a class="removeLine" href="#" onClick="console.log($(this).closest(\'tr\'));removeElement($(this).closest(\'tr\')); return false;">[-]</a><input class="description" type="text" name="description_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + description + '" style="width:95.8%" /></td><td align=right><input class="quantity" type="text" name="quantity_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + quantity + '" style="width:90%; text-align:right" /></td><td align=left ><input class="unit_price" type="text" name="unitprice_' + (document.getElementById('id').value - 1) + '_' + lineid + '" value="' + unit_price + '" style="width:85%; text-align:right"/><div class="unit">&euro;</div></td><td align=right><text class="montant" >0</text> &euro;</td></tr>';
 
     $(id).find(".lastline").before(new_line);
 
