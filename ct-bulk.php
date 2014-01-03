@@ -28,14 +28,15 @@ function sqlToDate($d){
 			while($row = mysql_fetch_array($result)){
 				$output = shell_exec('ls > log.txt');
 				
-				if (!($xmlFile = fopen("documents/document.xml","w"))){
+				
+				if (!($xmlFile = @fopen("documents/document.xml","w"))){
 					echo '{"success": false, "msg": "Oups, le fichier temporaire n\'a pas été généré. :( "}';
-					exit("Unable to open file!"); 
-				}
+					exit();                                                                                    
+				}	
 				else
 				{
 					fwrite($xmlFile, stripcslashes($row[1]));
-					$fop_path = shell_exec("which fop | tr -d '\n'");
+					$fop_path = system("which fop | tr -d '\n'");
 					if($fop_path != null){
 						$output = shell_exec($fop_path.' -c fop.xconf -xml documents/document.xml -xsl documents/document.xsl -pdf documents/temp/'.$type.$row[0].'.pdf 2> log.txt');
 						fclose($xmlFile);
@@ -44,8 +45,8 @@ function sqlToDate($d){
 						else
 							$msg .= " Oups, le fichier ".$row[0]." n'a pas pu être généré. :( ";
 					}else{
-						echo '{"success": false, "msg": "Oups, fop ne semble pas installé. :( "}';
-						exit("fop is not installed"); 
+						echo '{"success": false, "msg": "Oups, fop ne semble pas installé. :( : '.$fop_path.'"}';
+						exit(); 
 					}
 				}
 			}
