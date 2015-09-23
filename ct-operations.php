@@ -1,7 +1,7 @@
 <?php
 function sqlToDate($d){
 		$TabMois = array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "décembre");
-    $separate_date = split('-',$d);
+    $separate_date = explode('-', $d);
     return $separate_date[2]." ".$TabMois[$separate_date[1]-1]." ".$separate_date[0];
 	}
 ?>
@@ -15,11 +15,14 @@ function sqlToDate($d){
 			require_once('ct-db_connect.php');
 			try{
 				$query = "UPDATE options SET value=".$_GET["deviss_count"]." WHERE name = 'deviss_count'";
-				$result = mysql_query($query);
+				//$result = mysql_query($query);
+				$result = mysqli_query($link, $query);
 				$query = "UPDATE options SET value=".$_GET["factures_count"]." WHERE name = 'factures_count'";
-				$result = mysql_query($query);
+				//$result = mysql_query($query);
+				$result = mysqli_query($link, $query);
 				$query = "UPDATE options SET value=".$_GET["estimations_count"]." WHERE name = 'estimations_count'";
-				$result = mysql_query($query);
+				//$result = mysql_query($query);
+				$result = mysqli_query($link, $query);
 				echo '{"success": true, "msg":"saved"}';
 			}catch(Exception $e){
 					echo '{"success": false, "msg": '.json_encode("10").'}';
@@ -38,8 +41,8 @@ function sqlToDate($d){
 			$number = substr($datas, -6, 6);
 
 			$query = 'DELETE FROM '.$type.'s WHERE number='.$number.'';
-			$result = mysql_query($query);
-
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 			if($result){
 				echo '{"success": true, "msg": "'.$type.' deleted", "redirect":"'.$type.'"}';
 			}else{
@@ -55,19 +58,22 @@ function sqlToDate($d){
 			$old_number = $_GET['old_number'];
 
 			$query = "UPDATE ".$type." SET number=".$old_number.", xml=(SELECT xml FROM ".$type."s WHERE number=".$old_number.")";
-			$result = mysql_query($query);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 
 			$query = "INSERT INTO ".$type."s (number) VALUES (".$number.")";
-			$result = mysql_query($query);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 
 			$query = "UPDATE ".$type."s SET xml=(SELECT xml FROM ".$type." WHERE number=".$old_number.") WHERE number=".$number."";
-			$result = mysql_query($query);
-
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 
 			$numberplusplus = $_GET['number'] + 1;
 			$query = 'UPDATE options SET value = '.$numberplusplus.' WHERE name = "'. $_GET['type'].'s_count"' ;
 			try{
-				$result = mysql_query($query);
+				//$result = mysql_query($query);
+				$result = mysqli_query($link, $query);
 			}catch(Exception $e){
 				echo '{"success": false, "msg": '.json_encode("10").'}';
 				exit;
@@ -86,18 +92,22 @@ function sqlToDate($d){
 			$number = $_GET['number'];
 
 			$query = "UPDATE ".$type." SET number=".$number.", xml=(SELECT xml FROM ".$old_type."s WHERE number=".$old_number.")";
-			$result = mysql_query($query);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 
 			$query = "INSERT INTO ".$type."s (number) VALUES (".$number.")";
-			$result = mysql_query($query);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 
 			$query = "UPDATE ".$type."s SET xml=(SELECT xml FROM ".$old_type."s WHERE number=".$old_number.") WHERE number=".$number."";
-			$result = mysql_query($query);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 
 			$numberplusplus = $_GET['number'] + 1;
 			$query = 'UPDATE options SET value = '.$numberplusplus.' WHERE name = "'. $_GET['type'].'s_count"' ;
 			try{
-				$result = mysql_query($query);
+				//$result = mysql_query($query);
+				$result = mysqli_query($link, $query);
 			}catch(Exception $e){
 				echo '{"success": false, "msg": '.json_encode("10").'}';
 				exit;
@@ -115,8 +125,10 @@ function sqlToDate($d){
 			$number = $_GET['number'];
 
 			$query = "SELECT number,xml FROM ".$type."s WHERE number=".$_GET['number']."";
-			$result = mysql_query($query);
-			$row = mysql_fetch_row($result);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
+			//$row = mysql_fetch_row($result);
+			$row = mysqli_fetch_array($result, MYSQLI_NUM);
 
 			$output = shell_exec('ls > log.txt');
 
@@ -150,13 +162,16 @@ function sqlToDate($d){
 			require_once('ct-db_connect.php');
 
 			$query = "SELECT COUNT(*) FROM ".$_GET['type']."s WHERE number = ".$_GET['number'];
-			$result = mysql_query($query);
-			$row = mysql_fetch_row($result);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
+			//$row = mysql_fetch_row($result);
+			$row = mysqli_fetch_array($result, MYSQLI_NUM);
 			if($row[0]<1){
 					$numberplusplus = $_GET['number'] + 1;
 					$query = 'UPDATE options SET value = '.$numberplusplus.' WHERE name = "'. $_GET['type'].'s_count"' ;
 				try{
-					$result = mysql_query($query);
+					//$result = mysql_query($query);
+					$result = mysqli_query($link, $query);
 				}catch(Exception $e){
 					echo '{"success": false, "msg": '.json_encode("10").'}';
 					exit;
@@ -192,7 +207,7 @@ XML;
 			{
 				if (substr($Nom, 0, 7) == "section")
 				{
-					list($name, $number) = split("_", $Nom, 2);
+					list($name, $number) = explode("_", $Nom, 2);
 					$xml_output->addChild('section');
 					$nSection++;
 					$nItem = -1;
@@ -201,7 +216,7 @@ XML;
 
 				if (substr($Nom, 0, 11) == "description")
 				{
-					list($description, $section, $line) = split("_", $Nom, 3);
+					list($description, $section, $line) = explode("_", $Nom, 3);
 					$xml_output->section[$nSection]->addChild('item');
 					$nItem++;
 					$xml_output->section[$nSection]->item[$nItem]->addChild('description', $Valeur);
@@ -209,13 +224,13 @@ XML;
 
 				if (substr($Nom, 0, 8) == "quantity")
 				{
-					list($quantity, $section, $line) = split("_", $Nom, 3);
+					list($quantity, $section, $line) = explode("_", $Nom, 3);
 					$xml_output->section[$nSection]->item[$nItem]->addChild('quantity', $Valeur);
 				}
 
 				if (substr($Nom, 0, 9) == "unitprice")
 				{
-					list($unitprice, $section, $line) = split("_", $Nom, 3);
+					list($unitprice, $section, $line) = explode("_", $Nom, 3);
 					$xml_output->section[$nSection]->item[$nItem]->addChild('unit_price', $Valeur);
 				}
 			}
@@ -237,7 +252,7 @@ XML;
 				//$xml_output->resume->addChild('conditions_line', $_GET['conditions_line'.$i]);
 				$xml_output->conditions->addChild('conditions_line', str_replace(' ', '&#160;', $_GET['conditions_line'.$i]));
 
-			$xml = $mysqli->real_escape_string(str_replace("\n",NULL,$xml_output->asXML()));
+			$xml = mysqli_real_escape_string($link, str_replace("\n",NULL,$xml_output->asXML()));
 
 			$query = 'INSERT INTO '.$_GET['type'].'s ('.
 			'number,'.
@@ -260,7 +275,8 @@ XML;
 			'date="'.$_GET['date'].'"';
 
 			try{
-				$result = mysql_query($query);
+				//$result = mysql_query($query);
+				$result = mysqli_query($link, $query);
 				$firstquery = json_encode($result);
 			}catch(Exception $e){
 				echo '{"success": false, "msg": '.json_encode("10").'}';
@@ -270,7 +286,8 @@ XML;
 			$query = 'INSERT IGNORE INTO clients (name, contact, address, zip, city, country) VALUES ("'.$_GET['name'].'","'.$_GET['contact'].'","'.$_GET['address'].'","'.$_GET['zip'].'","'.$_GET['city'].'","'.$_GET['country'].'");';
 
 			try{
-				$result = mysql_query($query);
+				//$result = mysql_query($query);
+				$result = mysqli_query($link, $query);
 				$secondquery = json_encode($result);
 				echo '{"success": true, "msg": '.$secondquery.'}';
 			}catch(Exception $e){
@@ -286,7 +303,8 @@ XML;
 
 			$query = 'SELECT DISTINCT id, name, contact, address, zip, city, country FROM clients WHERE name LIKE  "%'.$_GET["name_contain"].'%" ORDER BY name;';
 			try{
-				$result = mysql_query($query);
+				//$result = mysql_query($query);
+				$result = mysqli_query($link, $query);
 				$allres = array();
     		while ($allres[] = mysql_fetch_object($result)) {}
     		array_pop($allres);
@@ -312,7 +330,8 @@ XML;
                     $query = 'SELECT * FROM operations WHERE MONTH(date_operation) = '.($_GET['month'] + 1).' AND YEAR(date_operation) = '.($_GET['year']).' AND compte = "Caisse" ORDER BY date_operation DESC, id DESC';
             }
 
-    		$result = mysql_query($query) or die('Erreur sur la requète : '.$query.'<br/>'.mysql_error());
+    		//$result = mysql_query($query) or die('Erreur sur la requète : '.$query.'<br/>'.mysql_error());
+        $result = mysqli_query($link, $query);
 
     		$xmlstr = <<<XML
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl"?><tableau_operations></tableau_operations>
@@ -347,7 +366,8 @@ XML;
 			require_once('ct-db_connect.php');
 
 			$query = 'INSERT INTO operations (date_operation, date_facture, categorie, provenance, objet, compte, debit, credit, credit_tva, debit_tva, remarques) VALUES ("'.$_GET['date_operation'].'" , "'.$_GET['date_facture'].'" , "'.$_GET['categorie'].'" , "'.$_GET['provenance'].'" , "'.$_GET['objet'].'" , "'.$_GET['compte'].'" , "'.$_GET['debit'].'" , "'.$_GET['credit'].'" , "'.$_GET['credit_tva'].'" , "'.$_GET['debit_tva'].'" , "'.$_GET['remarques'].'" );';
-			$result = mysql_query($query);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 
 			if($result){
 				echo '{"success": true, "msg": "added"}';
@@ -361,7 +381,8 @@ XML;
 			require_once('ct-db_connect.php');
 
 			$query = 'DELETE FROM operations WHERE id='.$_GET['id'].';';
-			$result = mysql_query($query);
+			//$result = mysql_query($query);
+			$result = mysqli_query($link, $query);
 
 			if($result){
 				echo '{"success": true, "msg": "deleted"}';
@@ -375,7 +396,8 @@ XML;
 	    require_once('ct-db_connect.php');
 
 		  $query = 'UPDATE operations SET '. $_POST['type'] .' = "'. $_POST['value'] .'" WHERE id = '. $_GET['id'] .'';
-		  $result = mysql_query($query);
+		  //$result = mysql_query($query);
+		  $result = mysqli_query($link, $query);
 
 		  echo $query;
 
@@ -385,7 +407,8 @@ XML;
       require_once('ct-db_connect.php');
 
       $query = 'SELECT compte, credit, debit FROM operations WHERE date_operation != 0000-00-00';
-      $result = mysql_query($query);
+      //$result = mysql_query($query);
+      $result = mysqli_query($link, $query);
 
       $compte = 0;
       $caisse = 0;
@@ -401,10 +424,12 @@ XML;
       }
 
       $query = 'UPDATE comptes SET montant = '.$compte.' WHERE compte="Compte"';
-      $result = mysql_query($query);
+      //$result = mysql_query($query);
+      $result = mysqli_query($link, $query);
 
       $query = 'UPDATE comptes SET montant = '.$caisse.' WHERE compte="Caisse"';
-      $result = mysql_query($query);
+      //$result = mysql_query($query);
+      $result = mysqli_query($link, $query);
 
       echo $compte.'|'.$caisse;
 
