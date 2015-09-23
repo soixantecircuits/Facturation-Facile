@@ -7,8 +7,8 @@ Elle permet de les exporter en pdf.
 
 ## Requis
 
-* Serveur php5 
-* Serveur >= mysql 4 
+* Serveur >= php5.5
+* Serveur >= mysql 4
 * apache fop
   You can install it by runngin :
   brew install fop (OSX)
@@ -17,7 +17,7 @@ Elle permet de les exporter en pdf.
   http://xmlgraphics.apache.org/fop/download.html
 * java JDK
 
-## Améliorations 
+## Améliorations
 
 * écriture des factures pdf en javascript côté client :
     https://github.com/mozilla/pdf.js
@@ -25,7 +25,7 @@ Elle permet de les exporter en pdf.
   ou côté serveur :
     http://pdfkit.org/ (node.js)
 
-* Sauvegarde des noms des clients 
+* Sauvegarde des noms des clients
 
 * Récupération des noms des clients avec fichiers d'adresses + contact : (adresse physique, mails, téléphone)
 
