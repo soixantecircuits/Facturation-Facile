@@ -35,13 +35,15 @@ echo "<select name='current_status' id='current_status'>";
 $query = 'SELECT status FROM '.$_GET['type'].'s WHERE number = '.$_GET["number"];
 
 try{
-	$result = mysql_query($query);			
+	//$result = mysql_query($query);
+	$result = mysqli_query($link, $query);
 }catch(Exception $e){
 	echo '{"success": false, "msg": '.json_encode("10").'}';
 	exit;
 }
 
-$row = mysql_fetch_array($result);
+//$row = mysql_fetch_array($result);
+$row = mysqli_fetch_array($result, MYSQLI_NUM);
 
 $status_available = array('awaiting','sended','paied','overdue');
 foreach($status_available as $value)
@@ -118,18 +120,17 @@ date et signature du client <br />(précédé de la mention «bon pour accord»)
 
 <?php
 	include 'ct-db_connect.php';
-	
+
 	$query = "SELECT number,xml FROM ".$_GET['type']."s WHERE number=".$_GET['number']."";
-	
-	$result = mysql_query($query);
-	
-	$row = mysql_fetch_row($result);
-	
+
+	//$result = mysql_query($query);
+	$result = mysqli_query($link, $query);
+	//$row = mysql_fetch_row($result);
+	$row = mysqli_fetch_array($result, MYSQLI_NUM);
+
 	echo '<script type="text/javascript">
 	var xmlstring = '.json_encode($row[1]).'; // osx version
 	</script>
-	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>	
-	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>	
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 	<script type="text/javascript" src="js/document.js"></script>';
-	
-	?>

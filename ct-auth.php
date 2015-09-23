@@ -6,8 +6,6 @@ require_once('ct-db_connect.php');
 
 session_start();
 
-
-
 $loginFormAction = $_SERVER['PHP_SELF'];
 
 if (isset($accesscheck)) {
@@ -33,16 +31,20 @@ if (isset($_POST['log'])) {
   $MM_redirectLoginFailed = "erreur.php";
 
   $MM_redirecttoReferrer = false;
-  
-  mysql_select_db("comptabilite", $connection);  
 
-  $LoginRS__query=sprintf("SELECT log, pass FROM administrateurs WHERE log='%s' AND pass='%s'",
+  //mysql_select_db("comptabilite", $connection);
+  $link->select_db(DB_NAME);
 
-    get_magic_quotes_gpc() ? $loginUsername : addslashes($loginUsername), get_magic_quotes_gpc() ? $password : addslashes($password)); 
-    
-  $LoginRS = mysql_query($LoginRS__query, $connection) or die(mysql_error());
 
-  $loginFoundUser = mysql_num_rows($LoginRS);
+  $LoginRS__query = sprintf("SELECT log, pass FROM administrateurs WHERE log='%s' AND pass='%s'",
+
+    get_magic_quotes_gpc() ? $loginUsername : addslashes($loginUsername), get_magic_quotes_gpc() ? $password : addslashes($password));
+
+//  $LoginRS = mysql_query($LoginRS__query, $connection) or die(mysql_error());
+  $LoginRS = mysqli_query($link, $LoginRS__query) or die(mysql_error());
+
+  //$loginFoundUser = mysql_num_rows($LoginRS);
+  $loginFoundUser = mysqli_num_rows($LoginRS);
 
   if ($loginFoundUser) {
 
@@ -52,7 +54,7 @@ if (isset($_POST['log'])) {
 
     $GLOBALS['MM_Username'] = $loginUsername;
 
-    $GLOBALS['MM_UserGroup'] = $loginStrGroup;        
+    $GLOBALS['MM_UserGroup'] = $loginStrGroup;
 
 
     $_SESSION['MM_Username']=$loginUsername;
@@ -63,7 +65,7 @@ if (isset($_POST['log'])) {
 
     if (isset($_SESSION['PrevUrl']) && false) {
 
-      $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];  
+      $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];
 
     }
 
@@ -78,6 +80,3 @@ if (isset($_POST['log'])) {
   }
 
 }
-
-
-?>

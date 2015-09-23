@@ -1,29 +1,29 @@
 <?php
-	/** 
+	/**
 	 * The base configurations of the Soixante circuits comptabilité.
 	 *
 	 * This file has the following configurations: MySQL settings
 	 */
-	
+
 	// ** MySQL settings - You can get this info from your web host ** //
 	/** The name of the database for WordPress */
 	define('DB_NAME', 'compta');
-	
+
 	/** MySQL database username */
 	define('DB_USER', 'root');
-	
+
 	/** MySQL database password */
 	define('DB_PASSWORD', '');
-	
+
 	/** MySQL hostname */
 	define('DB_HOST', 'localhost');
-	
+
 	/** Database Charset to use in creating database tables. */
 	define('DB_CHARSET', 'utf8');
-	
+
 	/** The Database Collate type. Don't change this if in doubt. */
 	define('DB_COLLATE', '');
-	
+
 	/**#@+
 	 * Authentication Unique Keys.
 	 *
@@ -38,7 +38,7 @@
 	define('LOGGED_IN_KEY', 'put your unique phrase here');
 	define('NONCE_KEY', 'put your unique phrase here');
 	/**#@-*/
-	
+
 	/**
 	 * Soixante circuits comptabilité Database Table prefix.
 	 *
@@ -46,7 +46,7 @@
 	 * prefix. Only numbers, letters, and underscores please!
 	 */
 	$table_prefix  = 'ct_';
-	
+
 	/**
 	 * WordPress Localized Language, defaults to English.
 	 *
@@ -56,15 +56,15 @@
 	 * language support.
 	 */
 	define ('WPLANG', '');
-	
+
 	/* That's all, stop editing! Happy blogging. */
-	
+
 	/** WordPress absolute path to the Wordpress directory. */
 	if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
-	
+
 	define ('TVA', '0.196');
-	
+
 	$mois = array('janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre');
 
 	date_default_timezone_set('Europe/Paris');
@@ -73,7 +73,7 @@
 	define ('CURR_MONTH', (date("m") - 1));
 	define ('CURR_YEAR', date("Y"));
 	define ('FIRST_YEAR', 2008);
-	
+
 	$categories = array('Matériel projet','Main d\'œuvre projet','-','Matériel R&D' ,'Matériel prospection','Matériel atelier','Fourniture de bureau','Indemnité de gestion','Charges sociales','Note de frais','Assurance','Frais compte pro','Honoraires comptable','Loyer','Electricité','Internet','Entretien et travaux atelier','-','Encaissement projet','Aide à la production','-','TVA','IS','Impôts et taxes (indirects)' );
 	$old_categories = array('Achat matière première pour projets','Indémnités de gestion','Charges sociales','Loyer','Achat matériel recherche & production','Fluides','Fourniture de bureau & travaux','Assurance','Honoraires comptable','Frais compte pro','Notes de frais','TVA','Impôts et taxes (indirects)','Frais d\'établissement','Impôt sur les sociétés','Encaissement projets','Aide à la production','Apport en capital','Apport en compte courant');
 	$group = array('Charges projets','Charges projets','-','Charges Soixante circuits' ,'Charges Soixante circuits','Charges Soixante circuits','Charges Soixante circuits','Indemnité de gestion','Indemnité de gestion','Frais de fonctionnement','Frais de fonctionnement','Frais de fonctionnement','Frais de fonctionnement','Charges atelier','Charges atelier','Charges atelier','Charges atelier','-','Produit','Produit','-','Impôts et taxes','Impôts et taxes','Impôts et taxes' );
@@ -85,10 +85,7 @@
                 'Charges atelier' => array('Loyer','Electricité','Internet','Entretien et travaux atelier'),
                 'Produit' => array('Encaissement projet','Aide à la production'),
                 'Impôts et taxes'=> array('TVA','IS','Impôts et taxes (indirects)') );
- 	
-
 
 	$comptes = array('Compte','CB','Caisse');
 
-	
-?>
+	define('TOKEN_ACCESS', '');

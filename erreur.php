@@ -54,7 +54,7 @@ font-weight: bold;
 
 .date {
 
-	float: left;	
+	float: left;
 
 	color:#666;
 
@@ -90,7 +90,7 @@ width:90px;
 
 	color: #666666;
 
-	
+
 
 	margin: 0 0 0px 0;
 
@@ -106,9 +106,8 @@ input { margin:0; padding:0}
 
 <div id="conteneurgeneral">
 <p>erreur</p>
-</div>  
+</div>
 
 </body>
 
 </html>
-

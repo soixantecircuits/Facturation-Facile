@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once('restrict.php');?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -13,8 +13,6 @@ require_once('restrict.php');?>
 <link rel="stylesheet" type="text/css" href="css/tableau.css"/>
 </head>
 <body>
-
-
 <div id="container">
   <p>
     <a href="<?php echo $logoutAction;?>">[LOGOUT]</a>
@@ -38,12 +36,10 @@ require_once('restrict.php');?>
 	   	include 'ct-documents.php'; ?>
   </div>
 </div>
-
-<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="/js/jquery-color.js"></script>
-<script type="text/javascript" src="/js/comptabilite.js"></script>
-<script type="text/javascript" src="/js/date.js"></script>
-<script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="/js/tableau.js"></script>
-
+  <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-color.js"></script>
+  <script type="text/javascript" src="/js/comptabilite.js"></script>
+  <script type="text/javascript" src="/js/date.js"></script>
+  <script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
+  <script type="text/javascript" src="/js/tableau.js"></script>
 </body>
